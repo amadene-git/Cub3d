@@ -59,7 +59,6 @@ static void	write_body(t_frame_saver *sv, t_cub *s)
 	int x;
 	int y;
 	int *img_buff;
-	int grbg;
 
 	img_buff = s->render.data;
 	y = s->res_h - 1;

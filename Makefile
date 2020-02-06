@@ -11,31 +11,35 @@
 # **************************************************************************** #
 
 
-NAME	=	Cub3D
+NAME		=	Cub3D
 
-SRCS	=	lol
+SRCS		=	$(wildcard srcs/*.c)
 
-OBJS	=	${SRCS:.c=.o }
+OBJSDOSS	=	objs/
 
-CFLAGS	=	-Wall -Wextra -Werror
+OBJS		=	${SRCS:.c=.o}
 
-CC		=	gcc
+CFLAGS		=	-Wall -Wextra -Werror
 
-RM		=	rm -rf
+MLXFLAGS	=	-I /usr/local/include -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
+
+CC			=	gcc
+
+RM			=	rm -rf
 
 
 
 .c.o	:
-        		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+				${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 all		:	${OBJS} 
-            	${CC} -o ${NAME} ${OBJS}
+				${CC} ${MLXFLAGS} -o ${NAME} ${OBJS} ; mkdir ${OBJSDOSS} ; mv ${OBJS} ${OBJSDOSS}
 
 clean	:
-                ${RM} ${OBJS}
+				${RM} ${OBJSDOSS}
 
 fclean	:	clean
-        		${RM} ${NAME}
+				${RM} ${NAME}
 
 re		:	fclean all
 

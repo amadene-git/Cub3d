@@ -15,7 +15,6 @@
 void	raycaster(t_cub *s)
 {
 	t_raycaster r;
-	int			stripe;
 
 	r.x = -1;
 	r.zbuffer = malloc(sizeof(double) * s->res_w + 1);

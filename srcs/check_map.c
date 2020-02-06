@@ -84,7 +84,7 @@ int		check_map(t_cub *s)
 	i = -1;
 	while (++i < s->mapheight)
 	{
-		if (ft_strlen(s->worldmap[i]) != s->mapwidth ||\
+		if ((int)ft_strlen(s->worldmap[i]) != s->mapwidth ||\
 		s->worldmap[i][0] != '1' || s->worldmap[i][s->mapwidth - 1] != '1')
 			return (0);
 		if (!check_char_in_map(s->worldmap[i]))

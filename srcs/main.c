@@ -18,6 +18,7 @@ int	main(int ac, char **av)
 	int		err;
 
 	s.mlx_ptr = mlx_init();
+	err = 0;
 	if ((ac == 3 && ft_strcmp(av[2], "-save")) ||\
 	(ac < 2 && ac > 3) || (err = stat_init(&s, av[1])))
 	{
