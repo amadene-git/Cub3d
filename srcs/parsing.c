@@ -14,9 +14,8 @@
 
 int		check_filename(char *filename)
 {
-	while (*filename)
+	while (*filename && *filename != '.')
 		filename++;
-	filename -= 4;
 	if (ft_strcmp(filename, ".cub"))
 		return (0);
 	return (1);
