@@ -93,9 +93,9 @@ void	raycaster_texture(t_cub *s, t_raycaster *r)
 		r->wallx = s->pos_x + r->perpwalldist * r->raydirx;
 	r->wallx -= floor((r->wallx));
 	if (r->side == 0 && r->raydirx < 0)
-		put_texture_n(r, s);
-	else if (r->side == 0)
 		put_texture_s(r, s);
+	else if (r->side == 0)
+		put_texture_n(r, s);
 	else if (r->side == 1 && r->raydiry < 0)
 		put_texture_e(r, s);
 	else if (r->side == 1)

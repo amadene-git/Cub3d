@@ -112,8 +112,8 @@ int		init_pos(t_cub *s)
 			if (s->worldmap[i][j] == 'N' || s->worldmap[i][j] == 'S'\
 			|| s->worldmap[i][j] == 'E' || s->worldmap[i][j] == 'W')
 			{
-				s->pos_x = i;
-				s->pos_y = j;
+				s->pos_x = i + 0.5;
+				s->pos_y = j + 0.5;
 				if (s->worldmap[i][j] == 'N')
 					s->angle = 0;
 				if (s->worldmap[i][j] == 'S')

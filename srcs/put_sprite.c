@@ -76,7 +76,7 @@ void	sprite_var_init(t_cub *s, t_raycaster *r)
 	r->drawendy = r->spriteheight / 2 + s->res_h / 2;
 	if (r->drawendy >= s->res_h)
 		r->drawendy = s->res_h - 1;
-	r->spritewidth = abs((int)(s->res_h / (r->transformy)));
+	r->spritewidth = abs((int)(s->res_h / (r->transformy) * 0.8));
 	r->drawstartx = -r->spritewidth / 2 + r->spritescreenx;
 	if (r->drawstartx < 0)
 		r->drawstartx = 0;

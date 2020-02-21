@@ -68,7 +68,7 @@ void	put_texture_s(t_raycaster *r, t_cub *s)
 	}
 }
 
-void	put_texture_w(t_raycaster *r, t_cub *s)
+void	put_texture_e(t_raycaster *r, t_cub *s)
 {
 	if (r->wallx != r->wallx)
 		r->wallx = 0;
@@ -96,7 +96,7 @@ void	put_texture_w(t_raycaster *r, t_cub *s)
 	}
 }
 
-void	put_texture_e(t_raycaster *r, t_cub *s)
+void	put_texture_w(t_raycaster *r, t_cub *s)
 {
 	if (r->wallx != r->wallx)
 		r->wallx = 0;
