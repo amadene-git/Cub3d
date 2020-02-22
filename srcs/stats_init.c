@@ -28,13 +28,13 @@ int		init_texsprite(t_cub *s)
 			n = j;
 			while (s->parsing[i][n] && s->parsing[i][n] != ' ')
 				n++;
+			if (!is_end_space(s->parsing[i] + n))
+				return (0);
 			s->parsing[i][n] = '\0';
 			if (!check_file(s->parsing[i] + j))
 				return (0);
-			s->texsprite.img_ptr = mlx_xpm_file_to_image(s->mlx_ptr,\
-			(s->parsing[i] + j), &s->texsprite.img_w, &s->texsprite.img_h);
-			s->texsprite.data = (int*)mlx_get_data_addr(s->texsprite.img_ptr,\
-			&s->texsprite.bit_pix, &s->texsprite.size_l, &s->texsprite.endian);
+			convert_xmp_to_data(s, &s->texsprite, i, j);
+			suppr_line(s->parsing, i);
 			return (1);
 		}
 	return (0);
@@ -106,6 +106,8 @@ int		stat_init(t_cub *s, char *filename)
 		return (5);
 	if (!check_map(s))
 		return (6);
+	s->pos_x = -1.0;
+	s->pos_y = -1.0;
 	if (!init_pos(s))
 		return (7);
 	return (0);

@@ -119,9 +119,7 @@ int		move_print(t_cub *s)
 	s->plane.x = s->dir.y * FOV;
 	s->plane.y = -s->dir.x * FOV;
 	move_key(s);
-	if (s->save && s->save < 5)
-		s->save++;
-	if (s->save == 5)
+	if (s->save)
 	{
 		ft_save("Cub3D.bmp", s);
 		end_of_the_world(s, 10, "");

@@ -59,7 +59,6 @@ void	var_init(t_cub *s)
 	s->key.s = 0;
 	s->key.d = 0;
 	s->key.shift = 0.0;
-	s->save = 0;
 	s->render.img_ptr = mlx_new_image(s->mlx_ptr, s->res_w, s->res_h);
 	s->render.data = (int*)mlx_get_data_addr(s->render.img_ptr,\
 	&s->render.bit_pix, &s->render.size_l, &s->render.endian);
@@ -67,6 +66,7 @@ void	var_init(t_cub *s)
 
 void	error(t_cub *s, int err)
 {
+	ft_putstr("Error\n");
 	if (err == 1)
 		end_of_the_world(s, err, "Le parsing du fichier a echoue\n");
 	if (err == 2)

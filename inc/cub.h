@@ -173,7 +173,7 @@ int				texture_e_init(t_cub *s);
 int				texture_w_init(t_cub *s);
 int				texture_init(t_cub *s);
 int				resolution_init(t_cub *s);
-int				convert_color(int tab[3]);
+int				convert_color(t_cub *s, int *i, int *j, char *ptr);
 int				ceiling_init(t_cub *s);
 int				floor_init(t_cub *s);
 int				stat_init(t_cub *s, char *filename);
@@ -221,5 +221,11 @@ char			*ft_strdup(char const *s);
 char			*ft_strjoin(char *s1, char *s2);
 char			*ft_sub(char const *s, unsigned int start, size_t len);
 int				get_next_line(int fd, char **line);
+void			suppr_line(char **tab, int i);
+int				is_end_space(char *str);
+void			skip_digit(t_cub *s, int i, int *j);
+void			convert_xmp_to_data(t_cub *s, t_image *tex, int i, int j);
+void			init_pos_utils(t_cub *s, int i, int j);
+void			map_parsing_utils(t_cub *s, int *i, int *n);
 
 #endif

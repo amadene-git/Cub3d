@@ -38,23 +38,19 @@ char	**map_parsing(t_cub *s)
 	int		n;
 	char	**worldmap;
 
-	i = 0;
-	while (s->parsing[i][0] != '1')
-		i++;
-	n = 0;
-	while (s->parsing[i])
-	{
-		i++;
-		n++;
-	}
+	map_parsing_utils(s, &i, &n);
 	if (!n)
 		return (NULL);
 	s->mapheight = n;
-	worldmap = (char**)malloc(sizeof(char*) * (n + 1));
+	if (!(worldmap = (char**)malloc(sizeof(char*) * (n + 1))))
+		return (NULL);
 	i -= n;
 	n = 0;
 	while (s->parsing[i])
-		worldmap[n++] = ft_strdup(s->parsing[i++]);
+	{
+		worldmap[n++] = ft_strdup(s->parsing[i]);
+		suppr_line(s->parsing, i);
+	}
 	worldmap[n] = NULL;
 	clean_space(worldmap);
 	return (worldmap);
@@ -112,18 +108,12 @@ int		init_pos(t_cub *s)
 			if (s->worldmap[i][j] == 'N' || s->worldmap[i][j] == 'S'\
 			|| s->worldmap[i][j] == 'E' || s->worldmap[i][j] == 'W')
 			{
-				s->pos_x = i + 0.5;
-				s->pos_y = j + 0.5;
-				if (s->worldmap[i][j] == 'N')
-					s->angle = 0;
-				if (s->worldmap[i][j] == 'S')
-					s->angle = M_PI;
-				if (s->worldmap[i][j] == 'E')
-					s->angle = M_PI / 2;
-				if (s->worldmap[i][j] == 'W')
-					s->angle = M_PI + (M_PI / 2);
+				if (s->pos_y != -1.0 || s->pos_x != -1.0)
+					return (0);
+				init_pos_utils(s, i, j);
 				s->worldmap[i][j] = '0';
-				return (1);
 			}
+	if (s->pos_y != -1.0 || s->pos_x != -1.0)
+		return (1);
 	return (0);
 }

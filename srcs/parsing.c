@@ -14,10 +14,41 @@
 
 int		check_filename(char *filename)
 {
-	while (*filename && *filename != '.')
-		filename++;
-	if (ft_strcmp(filename, ".cub"))
+	int i;
+
+	i = 0;
+	while (filename[i])
+		i++;
+	if (i >= 4 && ft_strcmp(filename + i - 4, ".cub"))
 		return (0);
+	return (1);
+}
+
+int		check_file(char *filename)
+{
+	int fd;
+
+	if ((fd = open(((const char*)(filename)), O_RDONLY)) == -1)
+		return (0);
+	close(fd);
+	return (1);
+}
+
+void	suppr_line(char **tab, int i)
+{
+	free(tab[i]);
+	while (tab[i])
+	{
+		tab[i] = tab[i + 1];
+		i++;
+	}
+}
+
+int		is_end_space(char *str)
+{
+	while (*str)
+		if (*str++ != ' ')
+			return (0);
 	return (1);
 }
 

@@ -11,11 +11,9 @@
 # **************************************************************************** #
 
 
-NAME		=	Cub3D
+NAME		=	cub3D
 
 SRCS		=	$(wildcard srcs/*.c)
-
-OBJSDOSS	=	objs/
 
 OBJS		=	${SRCS:.c=.o}
 
@@ -33,14 +31,17 @@ RM			=	rm -rf
 				${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 all		:	${OBJS} 
-				${CC} ${MLXFLAGS} -o ${NAME} ${OBJS} ; mkdir ${OBJSDOSS} ; mv ${OBJS} ${OBJSDOSS}
+				${CC} ${MLXFLAGS} -o ${NAME} ${OBJS} 
 
 clean	:
-				${RM} ${OBJSDOSS}
+				${RM} ${OBJS}
 
 fclean	:	clean
 				${RM} ${NAME}
 
+sclean	:	fclean
+			${RM} cub3D.bmp
+
 re		:	fclean all
 
-.PHONY	:	all clean fclean re ${NAME}
+.PHONY	:	all clean fclean sclean re ${NAME}

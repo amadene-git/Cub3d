@@ -91,7 +91,7 @@ int			ft_save(char *filename, t_cub *s)
 	sv.size = 54 + 3 * s->res_w * s->res_h +
 		((4 - (s->res_w * 3) % 4) % 4) * s->res_h;
 	sv.buf = calloc(sv.size, 1);
-	if ((fd = open(filename, O_WRONLY | O_CREAT, S_IRUSR)) < 0)
+	if ((fd = open(filename, O_WRONLY | O_CREAT, S_IRWXU)) < 0)
 		return (-1);
 	write_file_header(&sv);
 	write_file_info(&sv, s);

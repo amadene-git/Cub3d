@@ -12,14 +12,12 @@
 
 #include "../inc/cub.h"
 
-int		check_file(char *filename)
+void	convert_xmp_to_data(t_cub *s, t_image *tex, int i, int j)
 {
-	int fd;
-
-	if ((fd = open(((const char*)(filename)), O_RDONLY)) == -1)
-		return (0);
-	close(fd);
-	return (1);
+	tex->img_ptr = mlx_xpm_file_to_image(s->mlx_ptr,\
+	(s->parsing[i] + j), &tex->img_w, &tex->img_h);
+	tex->data = (int*)mlx_get_data_addr(tex->img_ptr,\
+	&tex->bit_pix, &tex->size_l, &tex->endian);
 }
 
 int		texture_n_init(t_cub *s)
@@ -38,13 +36,13 @@ int		texture_n_init(t_cub *s)
 			n = j;
 			while (s->parsing[i][n] && s->parsing[i][n] != ' ')
 				n++;
+			if (!is_end_space(s->parsing[i] + n))
+				return (0);
 			s->parsing[i][n] = '\0';
 			if (!check_file(s->parsing[i] + j))
 				return (0);
-			s->tex1.img_ptr = mlx_xpm_file_to_image(s->mlx_ptr,\
-			(s->parsing[i] + j), &s->tex1.img_w, &s->tex1.img_h);
-			s->tex1.data = (int*)mlx_get_data_addr(s->tex1.img_ptr,\
-			&s->tex1.bit_pix, &s->tex1.size_l, &s->tex1.endian);
+			convert_xmp_to_data(s, &s->tex1, i, j);
+			suppr_line(s->parsing, i);
 			return (1);
 		}
 	return (0);
@@ -66,13 +64,13 @@ int		texture_s_init(t_cub *s)
 			n = j;
 			while (s->parsing[i][n] && s->parsing[i][n] != ' ')
 				n++;
+			if (!is_end_space(s->parsing[i] + n))
+				return (0);
 			s->parsing[i][n] = '\0';
 			if (!check_file(s->parsing[i] + j))
 				return (0);
-			s->tex2.img_ptr = mlx_xpm_file_to_image(s->mlx_ptr,\
-			(s->parsing[i] + j), &s->tex2.img_w, &s->tex2.img_h);
-			s->tex2.data = (int*)mlx_get_data_addr(s->tex2.img_ptr,\
-			&s->tex2.bit_pix, &s->tex2.size_l, &s->tex2.endian);
+			convert_xmp_to_data(s, &s->tex2, i, j);
+			suppr_line(s->parsing, i);
 			return (1);
 		}
 	return (0);
@@ -94,13 +92,13 @@ int		texture_e_init(t_cub *s)
 			n = j;
 			while (s->parsing[i][n] && s->parsing[i][n] != ' ')
 				n++;
+			if (!is_end_space(s->parsing[i] + n))
+				return (0);
 			s->parsing[i][n] = '\0';
 			if (!check_file(s->parsing[i] + j))
 				return (0);
-			s->tex3.img_ptr = mlx_xpm_file_to_image(s->mlx_ptr,\
-			(s->parsing[i] + j), &s->tex3.img_w, &s->tex3.img_h);
-			s->tex3.data = (int*)mlx_get_data_addr(s->tex3.img_ptr,\
-			&s->tex3.bit_pix, &s->tex3.size_l, &s->tex3.endian);
+			convert_xmp_to_data(s, &s->tex3, i, j);
+			suppr_line(s->parsing, i);
 			return (1);
 		}
 	return (0);
@@ -122,13 +120,13 @@ int		texture_w_init(t_cub *s)
 			n = j;
 			while (s->parsing[i][n] && s->parsing[i][n] != ' ')
 				n++;
+			if (!is_end_space(s->parsing[i] + n))
+				return (0);
 			s->parsing[i][n] = '\0';
 			if (!check_file(s->parsing[i] + j))
 				return (0);
-			s->tex4.img_ptr = mlx_xpm_file_to_image(s->mlx_ptr,\
-			(s->parsing[i] + j), &s->tex4.img_w, &s->tex4.img_h);
-			s->tex4.data = (int*)mlx_get_data_addr(s->tex4.img_ptr,\
-			&s->tex4.bit_pix, &s->tex4.size_l, &s->tex4.endian);
+			convert_xmp_to_data(s, &s->tex4, i, j);
+			suppr_line(s->parsing, i);
 			return (1);
 		}
 	return (0);
