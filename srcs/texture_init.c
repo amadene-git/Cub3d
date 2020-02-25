@@ -12,12 +12,15 @@
 
 #include "../inc/cub.h"
 
-void	convert_xmp_to_data(t_cub *s, t_image *tex, int i, int j)
+int		convert_xmp_to_data(t_cub *s, t_image *tex, int i, int j)
 {
 	tex->img_ptr = mlx_xpm_file_to_image(s->mlx_ptr,\
 	(s->parsing[i] + j), &tex->img_w, &tex->img_h);
+	if (!tex->img_ptr)
+		return (0);
 	tex->data = (int*)mlx_get_data_addr(tex->img_ptr,\
 	&tex->bit_pix, &tex->size_l, &tex->endian);
+	return (1);
 }
 
 int		texture_n_init(t_cub *s)
@@ -41,7 +44,8 @@ int		texture_n_init(t_cub *s)
 			s->parsing[i][n] = '\0';
 			if (!check_file(s->parsing[i] + j))
 				return (0);
-			convert_xmp_to_data(s, &s->tex1, i, j);
+			if (!convert_xmp_to_data(s, &s->tex1, i, j))
+				return (0);
 			suppr_line(s->parsing, i);
 			return (1);
 		}
@@ -69,7 +73,8 @@ int		texture_s_init(t_cub *s)
 			s->parsing[i][n] = '\0';
 			if (!check_file(s->parsing[i] + j))
 				return (0);
-			convert_xmp_to_data(s, &s->tex2, i, j);
+			if (!convert_xmp_to_data(s, &s->tex2, i, j))
+				return (0);
 			suppr_line(s->parsing, i);
 			return (1);
 		}
@@ -97,7 +102,8 @@ int		texture_e_init(t_cub *s)
 			s->parsing[i][n] = '\0';
 			if (!check_file(s->parsing[i] + j))
 				return (0);
-			convert_xmp_to_data(s, &s->tex3, i, j);
+			if (!convert_xmp_to_data(s, &s->tex3, i, j))
+				return (0);
 			suppr_line(s->parsing, i);
 			return (1);
 		}
@@ -125,7 +131,8 @@ int		texture_w_init(t_cub *s)
 			s->parsing[i][n] = '\0';
 			if (!check_file(s->parsing[i] + j))
 				return (0);
-			convert_xmp_to_data(s, &s->tex4, i, j);
+			if (!convert_xmp_to_data(s, &s->tex4, i, j))
+				return (0);
 			suppr_line(s->parsing, i);
 			return (1);
 		}

@@ -17,19 +17,19 @@ void	move_up_down(t_cub *s)
 	if (s->key.up || s->key.w)
 	{
 		if (s->worldmap[(int)(s->pos_x + s->dir.x * (MOVE_SPEED\
-		+ s->key.shift))][(int)(s->pos_y)] == '0')
+		+ s->key.shift))][(int)(s->pos_y)] != '1')
 			s->pos_x += s->dir.x * (MOVE_SPEED + s->key.shift);
 		if (s->worldmap[(int)(s->pos_x)][(int)(s->pos_y +\
-		s->dir.y * (MOVE_SPEED + s->key.shift))] == '0')
+		s->dir.y * (MOVE_SPEED + s->key.shift))] != '1')
 			s->pos_y += s->dir.y * (MOVE_SPEED + s->key.shift);
 	}
 	if (s->key.down || s->key.s)
 	{
 		if (s->worldmap[(int)(s->pos_x - s->dir.x * (MOVE_SPEED\
-		+ s->key.shift))][(int)(s->pos_y)] == '0')
+		+ s->key.shift))][(int)(s->pos_y)] != '1')
 			s->pos_x -= s->dir.x * (MOVE_SPEED + s->key.shift);
 		if (s->worldmap[(int)(s->pos_x)][(int)(s->pos_y - s->dir.y\
-		* (MOVE_SPEED + s->key.shift))] == '0')
+		* (MOVE_SPEED + s->key.shift))] != '1')
 			s->pos_y -= s->dir.y * (MOVE_SPEED + s->key.shift);
 	}
 }
@@ -41,19 +41,19 @@ void	move_key(t_cub *s)
 	if (s->key.a)
 	{
 		if (s->worldmap[(int)(s->pos_x - s->dir.y * (MOVE_SPEED\
-		+ s->key.shift))][(int)(s->pos_y)] == '0')
+		+ s->key.shift))][(int)(s->pos_y)] != '1')
 			s->pos_x -= s->dir.y * (MOVE_SPEED + s->key.shift);
 		if (s->worldmap[(int)(s->pos_x)][(int)(s->pos_y +\
-		s->dir.x * (MOVE_SPEED + s->key.shift))] == '0')
+		s->dir.x * (MOVE_SPEED + s->key.shift))] != '1')
 			s->pos_y += s->dir.x * (MOVE_SPEED + s->key.shift);
 	}
 	if (s->key.d)
 	{
 		if (s->worldmap[(int)(s->pos_x + s->dir.y * (MOVE_SPEED\
-		+ s->key.shift))][(int)(s->pos_y)] == '0')
+		+ s->key.shift))][(int)(s->pos_y)] != '1')
 			s->pos_x += s->dir.y * (MOVE_SPEED + s->key.shift);
 		if (s->worldmap[(int)(s->pos_x)][(int)(s->pos_y - s->dir.x\
-		* (MOVE_SPEED + s->key.shift))] == '0')
+		* (MOVE_SPEED + s->key.shift))] != '1')
 			s->pos_y -= s->dir.x * (MOVE_SPEED + s->key.shift);
 	}
 	if (s->key.left)
@@ -80,8 +80,6 @@ int		handle_press(int key_pressed, t_cub *s)
 		s->key.s = 1;
 	if (key_pressed == D_KEY)
 		s->key.d = 1;
-	if (key_pressed == L_SHIFT_KEY)
-		s->key.shift = RUN_SPEED;
 	if (key_pressed == ESCAPE_KEY)
 		end_of_the_world(s, 10, "");
 	return (1);
@@ -105,8 +103,6 @@ int		handle_release(int key_release, t_cub *s)
 		s->key.s = 0;
 	if (key_release == D_KEY)
 		s->key.d = 0;
-	if (key_release == L_SHIFT_KEY)
-		s->key.shift = 0.0;
 	return (1);
 }
 

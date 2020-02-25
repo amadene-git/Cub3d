@@ -49,7 +49,8 @@ void	end_of_the_world(t_cub *s, int err, char *str)
 
 void	var_init(t_cub *s)
 {
-	s->win_ptr = mlx_new_window(s->mlx_ptr, s->res_w, s->res_h, "Cub3D");
+	if (!s->save)
+		s->win_ptr = mlx_new_window(s->mlx_ptr, s->res_w, s->res_h, "Cub3D");
 	s->key.up = 0;
 	s->key.down = 0;
 	s->key.left = 0;

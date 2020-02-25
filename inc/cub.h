@@ -223,8 +223,8 @@ char			*ft_sub(char const *s, unsigned int start, size_t len);
 int				get_next_line(int fd, char **line);
 void			suppr_line(char **tab, int i);
 int				is_end_space(char *str);
-void			skip_digit(t_cub *s, int i, int *j);
-void			convert_xmp_to_data(t_cub *s, t_image *tex, int i, int j);
+int				skip_digit(t_cub *s, int i, int *j);
+int				convert_xmp_to_data(t_cub *s, t_image *tex, int i, int j);
 void			init_pos_utils(t_cub *s, int i, int j);
 void			map_parsing_utils(t_cub *s, int *i, int *n);
 

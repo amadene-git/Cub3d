@@ -38,8 +38,7 @@ void	fct_save(t_cub *s)
 		s->plane.x = s->dir.y * FOV;
 		s->plane.y = -s->dir.x * FOV;
 	}
-	if ((ft_save("cub3D.bmp", s)) == -1)
-		printf("shit\n");
+	ft_save("cub3d.bmp", s);
 	end_of_the_world(s, 10, "");
 }
 
@@ -56,8 +55,9 @@ int		main(int ac, char **av)
 		error(&s, err);
 		return (-1);
 	}
+	s.save = (ac == 3 && !ft_strcmp(av[2], "--save"));
 	var_init(&s);
-	if (ac == 3 && !ft_strcmp(av[2], "--save"))
+	if (s.save)
 		fct_save(&s);
 	if (!check_parsing(s.parsing))
 		error(&s, 1);
