@@ -39,9 +39,17 @@ SRCS		=	srcs/check_map.c\
 
 OBJS		=	${SRCS:.c=.o}
 
+
+HEADERSDIR 	=	inc
+
 CFLAGS		=	-Wall -Wextra -Werror
 
-MLXFLAGS	=	-I /usr/local/include -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
+CFLAGS		= 	-Wall -Werror -Wextra 
+INCLUDES	= 	-I$(HEADERSDIR) $(MLX)
+
+PATH_MLX	=	./minilibx-linux/
+MLX			= -L$(PATH_MLX) -lmlx -lXext -lX11 -lm
+
 
 CC			=	gcc
 
@@ -55,7 +63,7 @@ RM			=	rm -rf
 all		:	${NAME}
 
 ${NAME}	:	${OBJS} 
-				${CC} ${MLXFLAGS} -o ${NAME} ${OBJS} 
+				${CC} $(CFLAGS) -o ${NAME}  ${OBJS} $(INCLUDES)  
 
 clean	:
 				${RM} ${OBJS}

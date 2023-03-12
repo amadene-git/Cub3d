@@ -31,7 +31,9 @@
 # define RUN_SPEED 		0.2
 # define FOV 			1
 # include "mlx.h"
-# include <libc.h>
+# include "mlx_int.h"
+
+// # include <libc.h>
 # include <math.h>
 # include <stdlib.h>
 # include <unistd.h>
