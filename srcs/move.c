@@ -16,7 +16,8 @@ void	move_up_down(t_cub *s)
 {
 	if (s->key.up || s->key.w)
 	{
-		if (s->worldmap[(int)(s->pos_x + s->dir.x * (MOVE_SPEED\
+		printf("weshhhh !!!!\n");
+        if (s->worldmap[(int)(s->pos_x + s->dir.x * (MOVE_SPEED\
 		+ s->key.shift))][(int)(s->pos_y)] != '1')
 			s->pos_x += s->dir.x * (MOVE_SPEED + s->key.shift);
 		if (s->worldmap[(int)(s->pos_x)][(int)(s->pos_y +\
@@ -64,7 +65,8 @@ void	move_key(t_cub *s)
 
 int		handle_press(int key_pressed, t_cub *s)
 {
-	if (key_pressed == UP_KEY)
+	
+    if (key_pressed == UP_KEY)
 		s->key.up = 1;
 	if (key_pressed == DOWN_KEY)
 		s->key.down = 1;

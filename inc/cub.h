@@ -16,24 +16,23 @@
 # define KEY_PRESSED	2
 # define KEY_RELEASE	3
 # define DESTROY_NOTIFY	17
-# define UP_KEY 		126
-# define DOWN_KEY 		125
-# define LEFT_KEY 		123
-# define RIGHT_KEY 		124
+# define UP_KEY 		122
+# define DOWN_KEY 		115
+# define LEFT_KEY 		113
+# define RIGHT_KEY 		100
 # define W_KEY 			13
 # define A_KEY 			0
 # define S_KEY 			1
 # define D_KEY 			2
 # define L_SHIFT_KEY 	257
-# define ESCAPE_KEY 	53
+# define ESCAPE_KEY 	65307
 # define MOVE_SPEED 	0.1
-# define ROT_SPEED 		48
-# define RUN_SPEED 		0.2
+# define ROT_SPEED 		150
+# define RUN_SPEED 		20
 # define FOV 			1
+
 # include "mlx.h"
 # include "mlx_int.h"
-
-// # include <libc.h>
 # include <math.h>
 # include <stdlib.h>
 # include <unistd.h>

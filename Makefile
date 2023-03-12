@@ -44,7 +44,7 @@ HEADERSDIR 	=	inc
 
 CFLAGS		=	-Wall -Wextra -Werror
 
-CFLAGS		= 	-Wall -Werror -Wextra 
+CFLAGS		= 	-Wall -Werror -Wextra -g
 INCLUDES	= 	-I$(HEADERSDIR) $(MLX)
 
 PATH_MLX	=	./minilibx-linux/

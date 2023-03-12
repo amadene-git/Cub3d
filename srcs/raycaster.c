@@ -22,8 +22,8 @@ void	raycaster(t_cub *s)
 		raycaster_texture(s, &r);
 	sprite_init(s, &r);
 	r.x = -1;
-	while (++r.x < r.nbr_sprite)
-		put_sprite(s, &r);
+	// while (++r.x < r.nbr_sprite)
+	// 	put_sprite(s, &r);
 	free(r.zbuffer);
 	free(s->sprite);
 }
