@@ -73,4 +73,4 @@ fclean	:	clean
 
 re		:	fclean all
 
-.PHONY	:	all clean fclean sclean re ${NAME}
+.PHONY	:	all clean fclean re 

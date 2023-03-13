@@ -63,8 +63,8 @@ char	**parsing(char *filename)
 	if ((fd = open(filename, O_RDONLY)) < 0 || !check_filename(filename))
 		return (NULL);
 	i = 0;
-	while (read(fd, &n, 1))
-		if (n == '\n')
+	while (read(fd, (char*)&n, 1))
+		if ((char)n == '\n')
 			i++;
 	close(fd);
 	if (!(data = (char**)malloc(sizeof(char*) * (i + 2))))

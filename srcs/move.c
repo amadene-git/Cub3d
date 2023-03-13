@@ -16,7 +16,6 @@ void	move_up_down(t_cub *s)
 {
 	if (s->key.up || s->key.w)
 	{
-		printf("weshhhh !!!!\n");
         if (s->worldmap[(int)(s->pos_x + s->dir.x * (MOVE_SPEED\
 		+ s->key.shift))][(int)(s->pos_y)] != '1')
 			s->pos_x += s->dir.x * (MOVE_SPEED + s->key.shift);

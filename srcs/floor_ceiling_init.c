@@ -19,10 +19,8 @@ int		skip_digit(t_cub *s, int i, int *j)
 	n = *j;
 	while (ft_isdigit(s->parsing[i][*j]))
 	{
-		printf("j %d\n", *j);
 		(*j)++;
 	}
-	printf ("n %d ; j %d\n", n, *j);
 	if (n == *j)
 		return (0);
 	return (1);
@@ -37,7 +35,6 @@ int		convert_color(t_cub *s, int *i, int *j, char *ptr)
 	*ptr-- = (char)ft_atoi(s->parsing[*i] + *j);
 	if (!skip_digit(s, *i, j) || s->parsing[*i][(*j)++] != ',')
 		return (0);
-	printf ("lol\n");
 	while (s->parsing[*i][*j] == ' ')
 		(*j)++;
 	if (ft_atoi(s->parsing[*i] + *j) > 255)

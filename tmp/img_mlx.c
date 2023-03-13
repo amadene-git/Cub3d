@@ -58,7 +58,6 @@ int main()
 	int width;
 	int height;
 	s.tex_ptr = mlx_xpm_file_to_image(s.mlx_ptr, "texture.xpm", &width, &height);
-	printf("wesh\n");
 	mlx_put_image_to_window(s.mlx_ptr, s.win_ptr, s.tex_ptr, 0, 0);
 	mlx_loop(s.mlx_ptr);
     
