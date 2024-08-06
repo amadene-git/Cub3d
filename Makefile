@@ -37,36 +37,32 @@ SRCS		=	srcs/check_map.c\
 				srcs/stats_init.c\
 				srcs/texture_init.c\
 
-OBJS		=	${SRCS:.c=.o}
+OBJS		=	${SRCS:%.c=${DIR_OBJS}/%.o}
 
+DIR_HEADER 	=	./inc
+DIR_OBJS 	=	./objs
+DIR_MLX		=	./minilibx-linux
 
-HEADERSDIR 	=	inc
-
-CFLAGS		=	-Wall -Wextra -Werror
-
-CFLAGS		= 	-Wall -Werror -Wextra -g
-INCLUDES	= 	-I$(HEADERSDIR) $(MLX)
-
-PATH_MLX	=	./minilibx-linux/
-MLX			= -L$(PATH_MLX) -lmlx -lXext -lX11 -lm
-
+CFLAGS		= 	-Wall -Werror -Wextra
+DBFLAGS		=	-g
+INCLUDES	= 	-I$(DIR_HEADER) $(MLXFAGS)
+MLXFAGS		=	-L$(DIR_MLX) -lmlx -lXext -lX11 -lm
 
 CC			=	gcc
-
 RM			=	rm -rf
 
 
-
-.c.o	:
-				${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
-
 all		:	${NAME}
 
-${NAME}	:	${OBJS} 
-				${CC} $(CFLAGS) -o ${NAME}  ${OBJS} $(INCLUDES)  
+${NAME}	:	${OBJS}
+				$(CC) $(CFLAGS) -o $@ $^ ${INCLUDES} 
+
+${DIR_OBJS}/%.o	:	%.c
+					@mkdir -p $(@D)
+					$(CC) $(CFLAGS) -c $< -o $@
 
 clean	:
-				${RM} ${OBJS}
+				${RM} ${OBJS} ${DIR_OBJS}
 
 fclean	:	clean
 				${RM} ${NAME}
