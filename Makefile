@@ -15,15 +15,7 @@ NAME		=	cub3D
 SRCS		=	srcs/check_map.c\
 				srcs/check_map_utils.c\
 				srcs/floor_ceiling_init.c\
-				srcs/ft_atoi.c\
-				srcs/ft_calloc.c\
-				srcs/ft_isdigit.c\
-				srcs/ft_isspace.c\
-				srcs/ft_putstr.c\
-				srcs/ft_strcmp.c\
 				srcs/ft_suppr_char_str.c\
-				srcs/gnl.c\
-				srcs/gnl_utils.c\
 				srcs/init_close.c\
 				srcs/main.c\
 				srcs/move.c\
@@ -40,25 +32,40 @@ SRCS		=	srcs/check_map.c\
 OBJS		=	${SRCS:%.c=${DIR_OBJS}/%.o}
 
 DIR_HEADER 	=	./inc
+DIR_SRCS	=	srcs
 DIR_OBJS 	=	./objs
 DIR_MLX		=	./minilibx-linux
 
-CFLAGS		= 	-Wall -Werror -Wextra
+CFLAGS		= 	-Wall -Werror -Wextra -I.
 DBFLAGS		=	-g
-INCLUDES	= 	-I$(DIR_HEADER) $(MLXFAGS)
+INCLUDES	= 	-I$(DIR_HEADER) $(MLXFAGS)  
 MLXFAGS		=	-L$(DIR_MLX) -lmlx -lXext -lX11 -lm
 
 CC			=	gcc
 RM			=	rm -rf
+LIBFT		=	.libft.a
 
-
-all		:	${NAME}
+all		:	${LIBFT} ${DIR_OBJS} ${NAME} 
 
 ${NAME}	:	${OBJS}
-				$(CC) $(CFLAGS) -o $@ $^ ${INCLUDES} 
+				$(CC) $(CFLAGS) -o $@ $^ ${INCLUDES} ${LIBFT}
+
+${DIR_OBJS} :
+				mkdir -p ${DIR_OBJS}/${DIR_SRCS}
+
+${LIBFT} : 
+			@if ! test -f ${LIBFT};\
+			then\
+				set -e;\
+				git clone git@github.com:amadene-git/libft;\
+				cd libft; make > /dev/null; cd ..;\
+				mv libft/libft.a .libft.a;\
+				mv libft/libft.h .libft.h;\
+				rm -rf libft;\
+			fi
+
 
 ${DIR_OBJS}/%.o	:	%.c
-					@mkdir -p $(@D)
 					$(CC) $(CFLAGS) -c $< -o $@
 
 clean	:
@@ -66,7 +73,9 @@ clean	:
 
 fclean	:	clean
 				${RM} ${NAME}
+lclean :	fclean
+				${RM} ${LIBFT} .libft.h libft
 
 re		:	fclean all
 
-.PHONY	:	all clean fclean re 
+.PHONY	:	all clean fclean re lclean 

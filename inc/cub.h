@@ -31,6 +31,7 @@
 # define RUN_SPEED 		20
 # define FOV 			1
 
+# include ".libft.h"
 # include "mlx.h"
 # include "mlx_int.h"
 # include <math.h>
@@ -181,16 +182,7 @@ int				stat_init(t_cub *s, char *filename);
 int				init_texsprite(t_cub *s);
 void			sprite_nbr_init(t_cub *s, t_raycaster *r);
 void			sprite_pos_init(t_cub *s, t_raycaster *r);
-size_t			ft_strlen(char const *str);
-char			*ft_strdup(const char *str);
-int				ft_atoi(const char *str);
-int				ft_isdigit(int c);
 char			**parsing(char *filename);
-int				ft_isspace(int c);
-void			ft_putstr(char *str);
-int				ft_strcmp(char *s1, char *s2);
-void			ft_bzero(void *s, size_t n);
-void			*ft_calloc(size_t nmemb, size_t size);
 char			*suppr_char_string(char *str, int n);
 void			clean_space(char **tab);
 char			**map_parsing(t_cub *s);
@@ -217,9 +209,6 @@ int				close_win(t_cub *s);
 int				ft_save(char *filename, t_cub *s);
 int				check_filename(char *filename);
 char			*ft_chr(const char *s, int c);
-size_t			ft_strlen(char const *str);
-char			*ft_strdup(char const *s);
-char			*ft_strjoin(char *s1, char *s2);
 char			*ft_sub(char const *s, unsigned int start, size_t len);
 int				get_next_line(int fd, char **line);
 void			suppr_line(char **tab, int i);
