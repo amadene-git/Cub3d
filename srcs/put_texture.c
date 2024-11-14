@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub.h"
+#include <cub.h>
 
 void	put_texture_n(t_raycaster *r, t_cub *s)
 {

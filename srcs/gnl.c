@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub.h"
+#include <cub.h>
 
 int		get_current_line(int fd, char **save)
 {

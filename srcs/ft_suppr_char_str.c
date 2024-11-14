@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub.h"
+#include <cub.h>
 
 char	*suppr_char_string(char *str, int n)
 {

@@ -31,26 +31,27 @@ SRCS		=	srcs/check_map.c\
 
 OBJS		=	${SRCS:%.c=${DIR_OBJS}/%.o}
 
-DIR_HEADER 	=	./inc
+DIR_HEADER 	=	includes
 DIR_SRCS	=	srcs
 DIR_OBJS 	=	./objs
 DIR_MLX		=	./minilibx-linux
 DIR_LIBFT	=
 
-
-CFLAGS		= 	-Wall -Werror -Wextra -I.
+CFLAGS		= 	-Wall -Werror -Wextra -g
 DBFLAGS		=	-g
-INCLUDES	= 	-I$(DIR_HEADER) $(MLXFAGS)  
-MLXFAGS		=	-L$(DIR_MLX) -lmlx -lXext -lX11 -lm
+INCLUDES	= 	-I $(DIR_HEADER)
+MLXFAGS		=	-L $(DIR_MLX) -lmlx -lXext -lX11 -lm
+
+LIBFT		=	$(DIR_HEADER)/.libft.a
+LIBFT_H		=	$(DIR_HEADER)/.libft.h
 
 CC			=	gcc
 RM			=	rm -rf
-LIBFT		=	.libft.a
 
 all		:	${LIBFT} ${DIR_OBJS} ${NAME} 
 
 ${NAME}	:	${OBJS}
-				$(CC) $(CFLAGS) -o $@ $^ ${INCLUDES} ${LIBFT}
+				$(CC) $(CFLAGS) -o $@ $^ $(MLXFAGS) ${LIBFT}
 
 ${DIR_OBJS} :
 				mkdir -p ${DIR_OBJS}/${DIR_SRCS}
@@ -61,14 +62,14 @@ ${LIBFT} :
 				set -e;\
 				git clone git@github.com:amadene-git/libft;\
 				cd libft; make > /dev/null; cd ..;\
-				mv libft/libft.a .libft.a;\
-				mv libft/libft.h .libft.h;\
+				mv libft/libft.a $(DIR_HEADER)/.libft.a;\
+				mv libft/libft.h $(DIR_HEADER)/.libft.h;\
 				rm -rf libft;\
 			fi
 
 
 ${DIR_OBJS}/%.o	:	%.c
-					$(CC) $(CFLAGS) -c $< -o $@
+					$(CC) ${INCLUDES} $(CFLAGS) -c $< -o $@
 
 clean	:
 				${RM} ${OBJS} ${DIR_OBJS}
@@ -76,7 +77,7 @@ clean	:
 fclean	:	clean
 				${RM} ${NAME}
 lclean :	fclean
-				${RM} ${LIBFT} .libft.h libft
+				${RM} ${LIBFT} $(LIBFT_H) libft
 
 re		:	fclean all
 

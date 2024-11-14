@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub.h"
+#include <cub.h>
 
 int		convert_xmp_to_image(t_cub *s, t_image *image, char *pathToImage)
 {

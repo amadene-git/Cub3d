@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub.h"
+#include <cub.h>
 
 void	eotw_utils(t_cub *s)
 {
@@ -42,6 +42,10 @@ void	end_of_the_world(t_cub *s, int err, char *str)
 	if (err > 5)
 		eotw_utils(s);
 	ft_putstr(str);
+
+	mlx_destroy_window(s->mlx_ptr, s->win_ptr);
+	mlx_destroy_display(s->mlx_ptr);
+	free();
 	if (err == 10)
 		exit(EXIT_SUCCESS);
 	exit(EXIT_FAILURE);
@@ -60,6 +64,10 @@ void	var_init(t_cub *s)
 	s->key.s = 0;
 	s->key.d = 0;
 	s->key.shift = 0.0;
+	s->dir.x = 0.0;
+	s->dir.y = 0.0;
+	s->plane.x = 0.0;
+	s->plane.y = 0.0;
 	s->render.img_ptr = mlx_new_image(s->mlx_ptr, s->res_w, s->res_h);
 	s->render.data = (int*)mlx_get_data_addr(s->render.img_ptr,\
 	&s->render.bit_pix, &s->render.size_l, &s->render.endian);
