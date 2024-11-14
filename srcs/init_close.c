@@ -43,9 +43,9 @@ void	end_of_the_world(t_cub *s, int err, char *str)
 		eotw_utils(s);
 	ft_putstr(str);
 
-	mlx_destroy_window(s->mlx_ptr, s->win_ptr);
+	if (s->win_ptr)
+		mlx_destroy_window(s->mlx_ptr, s->win_ptr);
 	mlx_destroy_display(s->mlx_ptr);
-	free();
 	if (err == 10)
 		exit(EXIT_SUCCESS);
 	exit(EXIT_FAILURE);

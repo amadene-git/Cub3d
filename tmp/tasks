@@ -1,6 +1,6 @@
 - integrer le gnl de la libft
-- Makefile mettre le libft.a/h dans inc
-
+- ajouter un garbage 
+- reparer le parsing de la map (segfault quand la map est identer)
 
 [en cours]
 - faire un ecran titre

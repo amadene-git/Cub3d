@@ -36,6 +36,7 @@
 # include "mlx_int.h"
 # include <math.h>
 # include <stdlib.h>
+# include <errno.h>
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -182,13 +183,19 @@ int				stat_init(t_cub *s, char *filename);
 int				init_texsprite(t_cub *s);
 void			sprite_nbr_init(t_cub *s, t_raycaster *r);
 void			sprite_pos_init(t_cub *s, t_raycaster *r);
+
+//parsing.c
 char			**parsing(char *filename);
+void			suppr_line(char **tab, int i);
+int				is_end_space(char *str);
+int				check_file(char *filname);
+int				checkFilenameExtension(const char *filename, const char *extension);
+
 char			*suppr_char_string(char *str, int n);
 void			clean_space(char **tab);
 char			**map_parsing(t_cub *s);
 int				check_map(t_cub *s);
 int				init_pos(t_cub *s);
-int				check_file(char *filname);
 void			put_texture_n(t_raycaster *r, t_cub *s);
 void			put_texture_s(t_raycaster *r, t_cub *s);
 void			put_texture_e(t_raycaster *r, t_cub *s);
@@ -208,12 +215,9 @@ void			exitError(t_cub *s, int err, char *message);
 void			printUsage();
 int				close_win(t_cub *s);
 int				ft_save(char *filename, t_cub *s);
-int				check_filename(char *filename);
 char			*ft_chr(const char *s, int c);
 char			*ft_sub(char const *s, unsigned int start, size_t len);
 int				get_next_line(int fd, char **line);
-void			suppr_line(char **tab, int i);
-int				is_end_space(char *str);
 int				skip_digit(t_cub *s, int i, int *j);
 int				convert_xmp_to_image(t_cub *s, t_image *image, char *pathToImage);
 t_image			changeImageResolution(t_cub *s, t_image *image, int newWidth, int newHeight);

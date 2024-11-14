@@ -12,14 +12,10 @@
 
 #include <cub.h>
 
-int		check_filename(char *filename)
+int		checkFilenameExtension(const char *filename, const char *extension)
 {
-	int i;
-
-	i = 0;
-	while (filename[i])
-		i++;
-	if (i >= 4 && ft_strcmp(filename + i - 4, ".cub"))
+	char *str = ft_strrchr(filename, '.');
+	if (ft_strcmp(str, extension))
 		return (0);
 	return (1);
 }
@@ -54,29 +50,8 @@ int		is_end_space(char *str)
 
 char	**parsing(char *filename)
 {
-	int		fd;
-	char	*line;
-	int		i;
-	char	**data;
-	int		n;
+	if (!checkFilenameExtension(filename, ".cub"))
+		return (NULL);
 
-	if ((fd = open(filename, O_RDONLY)) < 0 || !check_filename(filename))
-		return (NULL);
-	i = 0;
-	while (read(fd, (char*)&n, 1))
-		if ((char)n == '\n')
-			i++;
-	close(fd);
-	if (!(data = (char**)malloc(sizeof(char*) * (i + 2))))
-		return (NULL);
-	fd = open(filename, O_RDONLY);
-	n = 0;
-	while (n < i)
-	{
-		get_next_line(fd, &line);
-		data[n++] = line;
-	}
-	data[n] = NULL;
-	close(fd);
-	return (data);
+	return (getFile(filename));
 }

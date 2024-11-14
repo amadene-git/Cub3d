@@ -96,20 +96,20 @@ int		texture_init(t_cub *s)
 int		stat_init(t_cub *s, char *filename)
 {
 	if (!(s->parsing = parsing(filename)))
-		return (1);
+		end_of_the_world(s, 0, "Le parsing du fichier a echoue\n");
 	if (!resolution_init(s))
-		return (2);
+		end_of_the_world(s, 0, "Resolution non valide\n");
 	if (!texture_init(s))
-		return (3);
+		end_of_the_world(s, 0, "Textures murs non valide\n");
 	if (!ceiling_init(s) || !floor_init(s))
-		return (4);
+		end_of_the_world(s, 0, "Plafond ou Sol non valide\n");
 	if (!init_texsprite(s))
-		return (5);
+		end_of_the_world(s, 0, "Texture Sprite non valide\n");
 	if (!check_map(s))
-		return (6);
+		end_of_the_world(s, 0, "Map non valide\n");
 	s->pos_x = -1.0;
 	s->pos_y = -1.0;
 	if (!init_pos(s))
-		return (7);
+		end_of_the_world(s, 0, "position joueur non valide\n");
 	return (0);
 }
