@@ -49,18 +49,30 @@ int		main(int ac, char **av)
 
 	s.mlx_ptr = mlx_init();
 	err = 0;
-	if ((ac == 3 && ft_strcmp(av[2], "--save")) ||
-	ac < 2 || ac > 3 || (err = stat_init(&s, av[1])))
-	{
-		error(&s, err);
-		return (-1);
+
+	if ((ac == 3 && ft_strcmp(av[2], "--save"))) {
+		printUsage("Error: invalid option\n");
+		exitError(&s, 0, "");
 	}
+	if (ac < 2 || ac > 3)
+	{
+		printUsage("Error: one argument required\n");
+		exitError(&s, 0, "");
+	}
+	if ((err = stat_init(&s, av[1])))
+	{
+		exitError(&s, err, "");
+	}
+
 	s.save = (ac == 3 && !ft_strcmp(av[2], "--save"));
 	var_init(&s);
 	if (s.save)
 		fct_save(&s);
 	if (!check_parsing(s.parsing))
-		error(&s, 1);
+		exitError(&s, 1, "");
+	
+
+	
 	mlx_hook(s.win_ptr, KEY_PRESSED, (1L << 0), handle_press, &s);
 	mlx_hook(s.win_ptr, KEY_RELEASE, (1L << 1), handle_release, &s);
 	mlx_loop_hook(s.mlx_ptr, move_print, &s);

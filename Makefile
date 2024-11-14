@@ -35,6 +35,8 @@ DIR_HEADER 	=	./inc
 DIR_SRCS	=	srcs
 DIR_OBJS 	=	./objs
 DIR_MLX		=	./minilibx-linux
+DIR_LIBFT	=
+
 
 CFLAGS		= 	-Wall -Werror -Wextra -I.
 DBFLAGS		=	-g

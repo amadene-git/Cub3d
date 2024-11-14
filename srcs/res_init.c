@@ -49,6 +49,8 @@ int		resolution_init(t_cub *s)
 				s->res_w = 2560;
 				s->res_h = 1440;
 			}
+			s->render.img_w = s->res_w;
+			s->render.img_h = s->res_h;
 			return (end_of_fct(s, &i, &j));
 		}
 	return (0);

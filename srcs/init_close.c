@@ -65,9 +65,8 @@ void	var_init(t_cub *s)
 	&s->render.bit_pix, &s->render.size_l, &s->render.endian);
 }
 
-void	error(t_cub *s, int err)
+void	exitError(t_cub *s, int err, char *message)
 {
-	ft_putstr("Error\n");
 	if (err == 1)
 		end_of_the_world(s, err, "Le parsing du fichier a echoue\n");
 	if (err == 2)
@@ -82,6 +81,16 @@ void	error(t_cub *s, int err)
 		end_of_the_world(s, err, "Map non valide\n");
 	if (err == 7)
 		end_of_the_world(s, err, "position joueur non valide\n");
+	else
+	end_of_the_world(s, 0, message);	
+}
+
+void printUsage(char *message)
+{
+	ft_putstr(message);
+	ft_putstr("Usage : ./cub3d FILE [--save]\n");
+	ft_putstr("FILE: path to .cub configuration file\n");
+	ft_putstr(" --save,\toption to screenshot 1rst frame\n");
 }
 
 int		close_win(t_cub *s)

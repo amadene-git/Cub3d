@@ -33,7 +33,7 @@ int		init_texsprite(t_cub *s)
 			s->parsing[i][n] = '\0';
 			if (!check_file(s->parsing[i] + j))
 				return (0);
-			if (!convert_xmp_to_data(s, &s->texsprite, i, j))
+			if (!convert_xmp_to_image(s, &s->texsprite, s->parsing[i] + j))
 				return (0);
 			suppr_line(s->parsing, i);
 			return (1);

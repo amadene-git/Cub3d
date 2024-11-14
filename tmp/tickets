@@ -1,2 +1,6 @@
-1 - rewrite makefile
+- integrer le gnl de la libft
+- Makefile mettre le libft.a/h dans inc
 
+
+[en cours]
+- faire un ecran titre
