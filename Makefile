@@ -14,7 +14,6 @@ NAME		=	cub3D
 
 SRCS		=	srcs/check_map.c\
 				srcs/check_map_utils.c\
-				srcs/floor_ceiling_init.c\
 				srcs/ft_suppr_char_str.c\
 				srcs/init_close.c\
 				srcs/main.c\
@@ -25,6 +24,7 @@ SRCS		=	srcs/check_map.c\
 				srcs/raycaster.c\
 				srcs/raycaster_texture.c\
 				srcs/save.c\
+				srcs/initializeBackgroundColors.c\
 				srcs/initializeConfig.c\
 				srcs/initializeConfigResolution.c\
 				srcs/initializeWallTextures.c\

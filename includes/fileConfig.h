@@ -18,12 +18,18 @@ typedef struct  s_wallTexture {
 	t_image		_east;
 }               t_wallTexture;
 
+typedef struct  s_backgroundColor {
+    int _ceiling;
+	int _floor;
+}               t_backgroundColor;
+
 typedef struct  s_fileConfig {
-    const char      *_filename;
-    char            **_fileDuplicate;
-    unsigned int    _resolutionWidth;
-    unsigned int    _resolutionHeight;
-    t_wallTexture   _wallTexture;
+    const char          *_filename;
+    char                **_fileDuplicate;
+    unsigned int        _resolutionWidth;
+    unsigned int        _resolutionHeight;
+    t_wallTexture       _wallTexture;
+    t_backgroundColor   _backgroundColor;
 }               t_fileConfig;
 
 #endif

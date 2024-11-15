@@ -12,36 +12,26 @@
 
 #include <cub.h>
 
-static void	freeTab(char **tab)
-{
-	int i = 0;
-	while (tab[i]) {
-		free(tab[i]);
-		++i;
-	}
-	free(tab);
-}
-
-int		initializeConfigResolution(t_cub *s)
+int		initializeConfigResolution(t_fileConfig *config)
 {
 	char	**tokenizeLine = NULL;
-	for (int i = 0; s->_config._fileDuplicate[i]; ++i) {
-		if (*skipWhitespaces(s->_config._fileDuplicate[i]) == 'R') {
-			tokenizeLine = ft_split_charset(s->_config._fileDuplicate[i], WHITESPACE_CHARSET);
+	for (int i = 0; config->_fileDuplicate[i]; ++i) {
+		if (*skipWhitespaces(config->_fileDuplicate[i]) == 'R') {
+			tokenizeLine = ft_split_charset(config->_fileDuplicate[i], WHITESPACE_CHARSET);
 			
 			if (tokenizeLine[1] == NULL || tokenizeLine[2] == NULL || tokenizeLine[3] != NULL)
 				return (0);
 			
-			s->_config._resolutionWidth = ft_atoi(tokenizeLine[1]);
-			s->_config._resolutionHeight = ft_atoi(tokenizeLine[2]);
-			if (s->_config._resolutionWidth <= 0 || s->_config._resolutionHeight <= 0)
+			config->_resolutionWidth = ft_atoi(tokenizeLine[1]);
+			config->_resolutionHeight = ft_atoi(tokenizeLine[2]);
+			if (config->_resolutionWidth <= 0 || config->_resolutionHeight <= 0)
 				return (0);	
-			if (s->_config._resolutionWidth > RESOLUTION_WIDTH_MAX || s->_config._resolutionHeight > RESOLUTION_HEIGHT_MAX)
+			if (config->_resolutionWidth > RESOLUTION_WIDTH_MAX || config->_resolutionHeight > RESOLUTION_HEIGHT_MAX)
 			{
-				s->_config._resolutionWidth = RESOLUTION_WIDTH_MAX;
-				s->_config._resolutionHeight = RESOLUTION_HEIGHT_MAX;
+				config->_resolutionWidth = RESOLUTION_WIDTH_MAX;
+				config->_resolutionHeight = RESOLUTION_HEIGHT_MAX;
 			}
-			suppr_line(s->_config._fileDuplicate, i);// must be deleted
+			suppr_line(config->_fileDuplicate, i);// must be deleted
 			freeTab(tokenizeLine);
 			return (1);			
 		}

@@ -22,20 +22,22 @@ int		convert_xpm_to_image(void *mlx_ptr, t_image *image, char *pathToImage)
 	return (1);
 }
 
-int		initializeWallTextureByTagName(t_cub *s, const char *tag, t_image *wallTexture) {
+static int		initializeWallTextureByTagName(t_cub *s, const char *tag, t_image *wallTexture) {
 	char	**tokenizeLine = NULL;
 
 	for (int i = 0; s->_config._fileDuplicate[i]; ++i) {
 		if (ft_strncmp(skipWhitespaces(s->_config._fileDuplicate[i]), tag, 2) == 0) {
 			tokenizeLine = ft_split_charset(s->_config._fileDuplicate[i], WHITESPACE_CHARSET);
 
-			if (tokenizeLine[1] == NULL
+			if (ft_strcmp(tokenizeLine[0], tag) != 0
+			  || tokenizeLine[1] == NULL
 			  || tokenizeLine[2] != NULL
 			  || !checkFile(tokenizeLine[1], "xpm")
 			  || !convert_xpm_to_image(s->mlx_ptr, wallTexture, tokenizeLine[1]))
 				return (0);
 			
 			suppr_line(s->_config._fileDuplicate, i);// must be deleted
+			freeTab(tokenizeLine);
 			return (1);
 		}
 	}

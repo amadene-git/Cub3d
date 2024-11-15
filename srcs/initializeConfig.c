@@ -85,28 +85,34 @@ void	sprite_pos_init(t_cub *s, t_raycaster *r)
 	}
 }
 
-char	*skipWhitespaces(char *str)
-{
+char	*skipWhitespaces(char *str) {
 	while (*str && ft_isspace(*str))
 		++str;
 	return (str);
 }
 
+void	freeTab(char **tab) {
+	int i = 0;
+	while (tab[i]) {
+		free(tab[i]);
+		++i;
+	}
+	free(tab);
+}
 
-int		initializeConfig(t_cub *s, const char *filename)
-{
 
+int		initializeConfig(t_cub *s, const char *filename) {
 	s->_config._filename = filename;
 
 	s->_config._fileDuplicate = fileDuplicate(s->_config._filename);
 	if (s->_config._fileDuplicate == NULL)
-		end_of_the_world(s, 0, "Le parsing du fichier a echoue\n");
+		end_of_the_world(s, 0, "Error: File reading failed\n");
 	else {
 		s->parsing = s->_config._fileDuplicate;
 	}
 	
-	if (!initializeConfigResolution(s))
-		end_of_the_world(s, 0, "Resolution non valide\n");
+	if (!initializeConfigResolution(&s->_config))
+		end_of_the_world(s, 0, "Error: Invalid resolution\n");
 	else {
 		s->res_w = s->_config._resolutionWidth;
 		s->res_h = s->_config._resolutionHeight;
@@ -115,15 +121,21 @@ int		initializeConfig(t_cub *s, const char *filename)
 	}
 	
 	if (!initializeWallTextures(s))
-		end_of_the_world(s, 0, "Textures murs non valide\n");
+		end_of_the_world(s, 0, "Error: Invalid wall textures\n");
 	else {
 		s->tex1 = s->_config._wallTexture._north;
 		s->tex2 = s->_config._wallTexture._south;
 		s->tex3 = s->_config._wallTexture._east;
 		s->tex4 = s->_config._wallTexture._west;
 	}
-	if (!ceiling_init(s) || !floor_init(s))
+
+	if (!initializeBackgroundColors(&s->_config))
 		end_of_the_world(s, 0, "Plafond ou Sol non valide\n");
+	else {
+		s->ceiling = s->_config._backgroundColor._ceiling;
+		s->floor = s->_config._backgroundColor._floor;
+	}
+
 	if (!init_texsprite(s))
 		end_of_the_world(s, 0, "Texture Sprite non valide\n");
 	if (!check_map(s))

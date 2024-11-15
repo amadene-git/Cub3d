@@ -165,27 +165,24 @@ void			raycaster(t_cub *s);
 void			raycaster_init(t_raycaster *r, t_cub *s);
 void			raycaster_dda(t_raycaster *r, t_cub *s);
 void			raycaster_algo(t_raycaster *r, t_cub *s);
-void			put_texture(t_raycaster *r, t_cub *s);
 void			raycaster(t_cub *s);
-int				convert_color(t_cub *s, int *i, int *j, char *ptr);
-int				ceiling_init(t_cub *s);
-int				floor_init(t_cub *s);
 
+// initializeBackgroundColors.c
+int				initializeBackgroundColors(t_fileConfig *config);
 
-// texture_init.c
+// initializeWallTexture.c
 int				convert_xpm_to_image(void *mlx_ptr, t_image *image, char *pathToImage);
-int				initializeWallTextureByTagName(t_cub *s, const char *tag, t_image *wallTexture);
 int				initializeWallTextures(t_cub *s);
 
-
 // initializeConfigResolution.c
-int				initializeConfigResolution(t_cub *s);
+int				initializeConfigResolution(t_fileConfig *config);
 
 // initializeConfig.c
 int				init_texsprite(t_cub *s);
 void			sprite_nbr_init(t_cub *s, t_raycaster *r);
 void			sprite_pos_init(t_cub *s, t_raycaster *r);
 char			*skipWhitespaces(char *str);
+void			freeTab(char **tab);
 int				initializeConfig(t_cub *s, const char *filename);
 
 // parsing.c
@@ -220,7 +217,6 @@ int				ft_save(char *filename, t_cub *s);
 char			*ft_chr(const char *s, int c);
 char			*ft_sub(char const *s, unsigned int start, size_t len);
 int				get_next_line(int fd, char **line);
-int				skip_digit(t_cub *s, int i, int *j);
 void			init_pos_utils(t_cub *s, int i, int j);
 void			map_parsing_utils(t_cub *s, int *i, int *n);
 
