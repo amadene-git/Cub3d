@@ -93,12 +93,27 @@ int		texture_init(t_cub *s)
 	return (1);
 }
 
-int		stat_init(t_cub *s, char *filename)
+int		initializeConfig(t_cub *s, const char *filename)
 {
-	if (!(s->parsing = parsing(filename)))
+
+	s->_config._filename = filename;
+
+	s->_config._fileDuplicate = fileDuplicate(s->_config._filename);
+	if (s->_config._fileDuplicate == NULL)
 		end_of_the_world(s, 0, "Le parsing du fichier a echoue\n");
-	if (!resolution_init(s))
+	else {
+		s->parsing = s->_config._fileDuplicate;
+	}
+	
+	if (!initializeConfigResolution(s))
 		end_of_the_world(s, 0, "Resolution non valide\n");
+	else {
+		s->res_w = s->_config._resolutionWidth;
+		s->res_h = s->_config._resolutionHeight;
+		s->render.img_w = s->res_w;
+		s->render.img_h = s->res_h;
+	}
+	
 	if (!texture_init(s))
 		end_of_the_world(s, 0, "Textures murs non valide\n");
 	if (!ceiling_init(s) || !floor_init(s))
@@ -107,8 +122,6 @@ int		stat_init(t_cub *s, char *filename)
 		end_of_the_world(s, 0, "Texture Sprite non valide\n");
 	if (!check_map(s))
 		end_of_the_world(s, 0, "Map non valide\n");
-	s->pos_x = -1.0;
-	s->pos_y = -1.0;
 	if (!init_pos(s))
 		end_of_the_world(s, 0, "position joueur non valide\n");
 	return (0);

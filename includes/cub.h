@@ -31,9 +31,10 @@
 # define RUN_SPEED 		20
 # define FOV 			1
 
-# include ".libft.h"
-# include "mlx.h"
-# include "mlx_int.h"
+# define RESOLUTION_WIDTH_MAX	2560
+# define RESOLUTION_HEIGHT_MAX	1440
+
+
 # include <math.h>
 # include <stdlib.h>
 # include <errno.h>
@@ -41,6 +42,11 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+
+# include ".libft.h"
+# include "mlx.h"
+# include "mlx_int.h"
+# include "fileConfig.h"
 
 typedef	struct	s_vector
 {
@@ -109,6 +115,7 @@ typedef struct	s_cub
 	int			mapwidth;
 	t_sprite	*sprite;
 	int			save;
+	t_fileConfig	_config;
 }				t_cub;
 
 typedef struct	s_raycaster
@@ -174,18 +181,22 @@ int				texture_n_init(t_cub *s);
 int				texture_s_init(t_cub *s);
 int				texture_e_init(t_cub *s);
 int				texture_w_init(t_cub *s);
-int				texture_init(t_cub *s);
-int				resolution_init(t_cub *s);
 int				convert_color(t_cub *s, int *i, int *j, char *ptr);
 int				ceiling_init(t_cub *s);
 int				floor_init(t_cub *s);
-int				stat_init(t_cub *s, char *filename);
+
+// res_init.c
+int				initializeConfigResolution(t_cub *s);
+
+// fileConfigInitialize.c
 int				init_texsprite(t_cub *s);
 void			sprite_nbr_init(t_cub *s, t_raycaster *r);
 void			sprite_pos_init(t_cub *s, t_raycaster *r);
+int				texture_init(t_cub *s);
+int				initializeConfig(t_cub *s, const char *filename);
 
-//parsing.c
-char			**parsing(char *filename);
+// parsing.c
+char			**fileDuplicate(const char *filename);
 void			suppr_line(char **tab, int i);
 int				is_end_space(char *str);
 int				check_file(char *filname);
@@ -211,7 +222,6 @@ void			sprite_var_init(t_cub *s, t_raycaster *r);
 void			put_sprite(t_cub *s, t_raycaster *r);
 void			end_of_the_world(t_cub *s, int err, char *str);
 void			var_init(t_cub *s);
-void			exitError(t_cub *s, int err, char *message);
 void			printUsage();
 int				close_win(t_cub *s);
 int				ft_save(char *filename, t_cub *s);

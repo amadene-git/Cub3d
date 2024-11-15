@@ -24,9 +24,9 @@ SRCS		=	srcs/check_map.c\
 				srcs/put_texture.c\
 				srcs/raycaster.c\
 				srcs/raycaster_texture.c\
-				srcs/res_init.c\
 				srcs/save.c\
-				srcs/stats_init.c\
+				srcs/initializeConfig.c\
+				srcs/initializeConfigResolution.c\
 				srcs/texture_init.c\
 
 OBJS		=	${SRCS:%.c=${DIR_OBJS}/%.o}

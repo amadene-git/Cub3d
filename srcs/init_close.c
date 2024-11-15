@@ -73,26 +73,6 @@ void	var_init(t_cub *s)
 	&s->render.bit_pix, &s->render.size_l, &s->render.endian);
 }
 
-void	exitError(t_cub *s, int err, char *message)
-{
-	if (err == 1)
-		end_of_the_world(s, err, "Le parsing du fichier a echoue\n");
-	if (err == 2)
-		end_of_the_world(s, err, "Resolution non valide\n");
-	if (err == 3)
-		end_of_the_world(s, err, "Textures murs non valide\n");
-	if (err == 4)
-		end_of_the_world(s, err, "Plafond ou Sol non valide\n");
-	if (err == 5)
-		end_of_the_world(s, err, "Texture Sprite non valide\n");
-	if (err == 6)
-		end_of_the_world(s, err, "Map non valide\n");
-	if (err == 7)
-		end_of_the_world(s, err, "position joueur non valide\n");
-	else
-	end_of_the_world(s, 0, message);	
-}
-
 void printUsage(char *message)
 {
 	ft_putstr(message);

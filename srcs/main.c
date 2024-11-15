@@ -45,32 +45,28 @@ void	fct_save(t_cub *s)
 int		main(int ac, char **av)
 {
 	t_cub	s;
-	s.win_ptr = NULL;
-	int		err;
-
-	s.mlx_ptr = mlx_init();
-	err = 0;
 
 	if ((ac == 3 && ft_strcmp(av[2], "--save"))) {
-		printUsage("Error: invalid option\n");
-		exitError(&s, 0, "");
+		printUsage("Error: invalid option\n\n");
+		end_of_the_world(&s, 0, "");
 	}
-	if (ac < 2 || ac > 3)
-	{
-		printUsage("Error: one argument required\n");
-		exitError(&s, 0, "");
+	if (ac < 2 || ac > 3) {
+		printUsage("Error: one argument required\n\n");
+		end_of_the_world(&s, 0, "");
 	}
-	if ((err = stat_init(&s, av[1])))
-	{
-		exitError(&s, err, "");
-	}
+
+
+	s.win_ptr = NULL;
+	s.mlx_ptr = mlx_init();
+
+	initializeConfig(&s, av[1]);
 
 	s.save = (ac == 3 && !ft_strcmp(av[2], "--save"));
 	var_init(&s);
 	if (s.save)
 		fct_save(&s);
 	if (!check_parsing(s.parsing))
-		exitError(&s, 1, "");
+		end_of_the_world(&s, 1, "");
 	
 	mlx_hook(s.win_ptr, KEY_PRESSED, (1L << 0), handle_press, &s);
 	mlx_hook(s.win_ptr, KEY_RELEASE, (1L << 1), handle_release, &s);

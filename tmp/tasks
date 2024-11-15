@@ -1,6 +1,7 @@
 - integrer le gnl de la libft
 - ajouter un garbage 
 - reparer le parsing de la map (segfault quand la map est identer)
+- tokenizer le s->_finleConfig
 
 [en cours]
 - faire un ecran titre

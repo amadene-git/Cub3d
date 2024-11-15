@@ -101,6 +101,9 @@ int		init_pos(t_cub *s)
 {
 	int i;
 	int j;
+	s->pos_x = -1.0;
+	s->pos_y = -1.0;
+
 
 	i = -1;
 	while ((j = -1) && ++i < s->mapheight)

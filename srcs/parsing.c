@@ -48,10 +48,10 @@ int		is_end_space(char *str)
 	return (1);
 }
 
-char	**parsing(char *filename)
+char	**fileDuplicate(const char *filename)
 {
 	if (!checkFilenameExtension(filename, ".cub"))
 		return (NULL);
 
-	return (getFile(filename));
+	return (ft_getFile(filename));
 }
