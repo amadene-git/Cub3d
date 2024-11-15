@@ -23,6 +23,16 @@ static int isStrDigit(const char *str) {
 	return (1);
 }
 
+static int convertColor(char *destColorPtr, char *strToConvert) {
+	int color = 0;
+
+	color = ft_atoi(strToConvert);
+	if (color > 255)
+		return (0);
+	destColorPtr[0] = color;
+	return (1);
+}
+
 static int	initializeBackgroundColorByTagName(char **fileDuplicate, const char *tag, int *color) {
 	char	**tokenizeLine = NULL;
 	char	**tokenizeColor = NULL;
@@ -36,16 +46,19 @@ static int	initializeBackgroundColorByTagName(char **fileDuplicate, const char *
 			  || tokenizeLine[1] == NULL
 			  || tokenizeLine[2] != NULL)
 				return (0);
+			
 			tokenizeColor = ft_split_charset(tokenizeLine[1], ",");  
 			if (tokenizeColor[0] == NULL || !isStrDigit(tokenizeColor[0])
 			  || tokenizeColor[1] == NULL || !isStrDigit(tokenizeColor[1])
 			  || tokenizeColor[2] == NULL || !isStrDigit(tokenizeColor[2])
 			  || tokenizeColor[3] != NULL)
 				return (0);
-			colorPtr[0] = ft_atoi(tokenizeColor[2]);
-			colorPtr[1] = ft_atoi(tokenizeColor[1]);
-			colorPtr[2] = ft_atoi(tokenizeColor[0]);
-
+			
+			if (!convertColor(&colorPtr[0], tokenizeColor[2])
+			  || !convertColor(&colorPtr[1], tokenizeColor[1])			
+			  || !convertColor(&colorPtr[2], tokenizeColor[0]))			
+				return (0);
+			
 			freeTab(tokenizeLine);
 			freeTab(tokenizeColor);
 			suppr_line(fileDuplicate, i);

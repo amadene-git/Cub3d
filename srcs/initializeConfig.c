@@ -130,7 +130,7 @@ int		initializeConfig(t_cub *s, const char *filename) {
 	}
 
 	if (!initializeBackgroundColors(&s->_config))
-		end_of_the_world(s, 0, "Plafond ou Sol non valide\n");
+		end_of_the_world(s, 0, "Error: Invalid color for ceiling or floor\n");
 	else {
 		s->ceiling = s->_config._backgroundColor._ceiling;
 		s->floor = s->_config._backgroundColor._floor;
