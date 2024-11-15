@@ -107,19 +107,10 @@ int		handle_release(int key_release, t_cub *s)
 	return (1);
 }
 
-void printBlue(t_cub *s)
-{
-	t_image myImage;
-	convert_xmp_to_image(s, &myImage, "config/Button_RESUME.xpm");
-	s->render = changeImageResolution(s, &myImage, s->render.img_w, s->render.img_h);
-	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->render.img_ptr, 0, 0);
-}
-
 int		move_print(t_cub *s)
 {
 	raycaster(s);
 	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->render.img_ptr, 0, 0);
-	// printBlue(s);
 	s->dir.x = -cos(s->angle);
 	s->dir.y = sin(s->angle);
 	s->plane.x = s->dir.y * FOV;

@@ -12,18 +12,15 @@
 
 #include <cub.h>
 
-int		checkFilenameExtension(const char *filename, const char *extension)
+int		checkFile(const char *filename, const char *extension)
 {
-	char *str = ft_strrchr(filename, '.');
-	if (ft_strcmp(str, extension))
-		return (0);
-	return (1);
-}
-
-int		check_file(char *filename)
-{
+	if (extension && *extension)
+	{
+		char *str = ft_strrchr(filename, '.');
+		if (!*str++ && ft_strcmp(str, extension))
+			return (0);
+	}
 	int fd;
-
 	if ((fd = open(((const char*)(filename)), O_RDONLY)) == -1)
 		return (0);
 	close(fd);
@@ -50,7 +47,7 @@ int		is_end_space(char *str)
 
 char	**fileDuplicate(const char *filename)
 {
-	if (!checkFilenameExtension(filename, ".cub"))
+	if (!checkFile(filename, ".cub"))
 		return (NULL);
 
 	return (ft_getFile(filename));

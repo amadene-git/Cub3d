@@ -33,6 +33,7 @@
 
 # define RESOLUTION_WIDTH_MAX	2560
 # define RESOLUTION_HEIGHT_MAX	1440
+# define WHITESPACE_CHARSET		" \t\r"
 
 
 # include <math.h>
@@ -66,17 +67,6 @@ typedef struct	s_key
 	int		d;
 	double	shift;
 }				t_key;
-
-typedef struct	s_image
-{
-	void	*img_ptr;
-	int		*data;
-	int		bit_pix;
-	int		size_l;
-	int		endian;
-	int		img_h;
-	int		img_w;
-}				t_image;
 
 typedef struct	s_sprite
 {
@@ -177,30 +167,32 @@ void			raycaster_dda(t_raycaster *r, t_cub *s);
 void			raycaster_algo(t_raycaster *r, t_cub *s);
 void			put_texture(t_raycaster *r, t_cub *s);
 void			raycaster(t_cub *s);
-int				texture_n_init(t_cub *s);
-int				texture_s_init(t_cub *s);
-int				texture_e_init(t_cub *s);
-int				texture_w_init(t_cub *s);
 int				convert_color(t_cub *s, int *i, int *j, char *ptr);
 int				ceiling_init(t_cub *s);
 int				floor_init(t_cub *s);
 
-// res_init.c
+
+// texture_init.c
+int				convert_xpm_to_image(void *mlx_ptr, t_image *image, char *pathToImage);
+int				initializeWallTextureByTagName(t_cub *s, const char *tag, t_image *wallTexture);
+int				initializeWallTextures(t_cub *s);
+
+
+// initializeConfigResolution.c
 int				initializeConfigResolution(t_cub *s);
 
-// fileConfigInitialize.c
+// initializeConfig.c
 int				init_texsprite(t_cub *s);
 void			sprite_nbr_init(t_cub *s, t_raycaster *r);
 void			sprite_pos_init(t_cub *s, t_raycaster *r);
-int				texture_init(t_cub *s);
+char			*skipWhitespaces(char *str);
 int				initializeConfig(t_cub *s, const char *filename);
 
 // parsing.c
-char			**fileDuplicate(const char *filename);
 void			suppr_line(char **tab, int i);
 int				is_end_space(char *str);
-int				check_file(char *filname);
-int				checkFilenameExtension(const char *filename, const char *extension);
+int				checkFile(const char *filename, const char *extension);
+char			**fileDuplicate(const char *filename);
 
 char			*suppr_char_string(char *str, int n);
 void			clean_space(char **tab);
@@ -229,8 +221,6 @@ char			*ft_chr(const char *s, int c);
 char			*ft_sub(char const *s, unsigned int start, size_t len);
 int				get_next_line(int fd, char **line);
 int				skip_digit(t_cub *s, int i, int *j);
-int				convert_xmp_to_image(t_cub *s, t_image *image, char *pathToImage);
-t_image			changeImageResolution(t_cub *s, t_image *image, int newWidth, int newHeight);
 void			init_pos_utils(t_cub *s, int i, int j);
 void			map_parsing_utils(t_cub *s, int *i, int *n);
 

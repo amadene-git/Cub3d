@@ -31,9 +31,9 @@ int		init_texsprite(t_cub *s)
 			if (!is_end_space(s->parsing[i] + n))
 				return (0);
 			s->parsing[i][n] = '\0';
-			if (!check_file(s->parsing[i] + j))
+			if (!checkFile(s->parsing[i] + j, "xpm"))
 				return (0);
-			if (!convert_xmp_to_image(s, &s->texsprite, s->parsing[i] + j))
+			if (!convert_xpm_to_image(s->mlx_ptr, &s->texsprite, s->parsing[i] + j))
 				return (0);
 			suppr_line(s->parsing, i);
 			return (1);
@@ -85,13 +85,13 @@ void	sprite_pos_init(t_cub *s, t_raycaster *r)
 	}
 }
 
-int		texture_init(t_cub *s)
+char	*skipWhitespaces(char *str)
 {
-	if (!texture_n_init(s) || !texture_s_init(s)\
-	|| !texture_e_init(s) || !texture_w_init(s))
-		return (0);
-	return (1);
+	while (*str && ft_isspace(*str))
+		++str;
+	return (str);
 }
+
 
 int		initializeConfig(t_cub *s, const char *filename)
 {
@@ -110,12 +110,18 @@ int		initializeConfig(t_cub *s, const char *filename)
 	else {
 		s->res_w = s->_config._resolutionWidth;
 		s->res_h = s->_config._resolutionHeight;
-		s->render.img_w = s->res_w;
-		s->render.img_h = s->res_h;
+		s->render.img_w = s->_config._resolutionWidth;
+		s->render.img_h = s->_config._resolutionHeight;
 	}
 	
-	if (!texture_init(s))
+	if (!initializeWallTextures(s))
 		end_of_the_world(s, 0, "Textures murs non valide\n");
+	else {
+		s->tex1 = s->_config._wallTexture._north;
+		s->tex2 = s->_config._wallTexture._south;
+		s->tex3 = s->_config._wallTexture._east;
+		s->tex4 = s->_config._wallTexture._west;
+	}
 	if (!ceiling_init(s) || !floor_init(s))
 		end_of_the_world(s, 0, "Plafond ou Sol non valide\n");
 	if (!init_texsprite(s))

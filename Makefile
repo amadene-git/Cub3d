@@ -27,7 +27,7 @@ SRCS		=	srcs/check_map.c\
 				srcs/save.c\
 				srcs/initializeConfig.c\
 				srcs/initializeConfigResolution.c\
-				srcs/texture_init.c\
+				srcs/initializeWallTextures.c\
 
 OBJS		=	${SRCS:%.c=${DIR_OBJS}/%.o}
 
