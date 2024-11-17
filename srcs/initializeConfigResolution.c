@@ -19,7 +19,10 @@ int		initializeConfigResolution(t_fileConfig *config)
 		if (*skipWhitespaces(config->_fileDuplicate[i]) == 'R') {
 			tokenizeLine = ft_split_charset(config->_fileDuplicate[i], WHITESPACE_CHARSET);
 			
-			if (tokenizeLine[1] == NULL || tokenizeLine[2] == NULL || tokenizeLine[3] != NULL)
+			if (ft_strcmp(tokenizeLine[0], "R") != 0
+			  || tokenizeLine[1] == NULL
+			  || tokenizeLine[2] == NULL
+			  || tokenizeLine[3] != NULL)
 				return (0);
 			
 			config->_resolutionWidth = ft_atoi(tokenizeLine[1]);
@@ -31,7 +34,6 @@ int		initializeConfigResolution(t_fileConfig *config)
 				config->_resolutionWidth = RESOLUTION_WIDTH_MAX;
 				config->_resolutionHeight = RESOLUTION_HEIGHT_MAX;
 			}
-			suppr_line(config->_fileDuplicate, i);// must be deleted
 			freeTab(tokenizeLine);
 			return (1);			
 		}

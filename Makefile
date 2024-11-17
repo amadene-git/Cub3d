@@ -14,7 +14,6 @@ NAME		=	cub3D
 
 SRCS		=	srcs/check_map.c\
 				srcs/check_map_utils.c\
-				srcs/ft_suppr_char_str.c\
 				srcs/init_close.c\
 				srcs/main.c\
 				srcs/move.c\
@@ -27,7 +26,7 @@ SRCS		=	srcs/check_map.c\
 				srcs/initializeBackgroundColors.c\
 				srcs/initializeConfig.c\
 				srcs/initializeConfigResolution.c\
-				srcs/initializeWallTextures.c\
+				srcs/initializeTextures.c\
 
 OBJS		=	${SRCS:%.c=${DIR_OBJS}/%.o}
 

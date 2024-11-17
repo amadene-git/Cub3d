@@ -157,6 +157,37 @@ typedef struct	s_frame_saver
 	size_t			size;
 }				t_frame_saver;
 
+
+// initializeBackgroundColors.c
+int				initializeBackgroundColors(t_fileConfig *config);
+
+// initializeTextures.c
+int				initializeTextures(t_cub *s);
+int				initializeSpriteTexture(t_cub *s);
+
+// initializeConfigResolution.c
+int				initializeConfigResolution(t_fileConfig *config);
+
+// initializeConfig.c
+void			sprite_nbr_init(t_cub *s, t_raycaster *r);
+void			sprite_pos_init(t_cub *s, t_raycaster *r);
+char			*skipWhitespaces(char *str);
+void			freeTab(char **tab);
+void			printTab(char **tab);
+int				initializeConfig(t_cub *s, const char *filename);
+
+// parsing.c
+void			suppr_line(char **tab, int i);
+int				is_end_space(char *str);
+int				checkFile(const char *filename, const char *extension);
+char			**fileDuplicate(const char *filename);
+
+// check_map.c
+int				map_parsing(t_cub *s);
+int				check_map(t_cub *s);
+int				init_pos(t_cub *s);
+
+
 void			move_key(t_cub *s);
 int				handle_press(int key_pressed, t_cub *s);
 int				handle_release(int key_release, t_cub *s);
@@ -167,35 +198,7 @@ void			raycaster_dda(t_raycaster *r, t_cub *s);
 void			raycaster_algo(t_raycaster *r, t_cub *s);
 void			raycaster(t_cub *s);
 
-// initializeBackgroundColors.c
-int				initializeBackgroundColors(t_fileConfig *config);
 
-// initializeWallTexture.c
-int				convert_xpm_to_image(void *mlx_ptr, t_image *image, char *pathToImage);
-int				initializeWallTextures(t_cub *s);
-
-// initializeConfigResolution.c
-int				initializeConfigResolution(t_fileConfig *config);
-
-// initializeConfig.c
-int				init_texsprite(t_cub *s);
-void			sprite_nbr_init(t_cub *s, t_raycaster *r);
-void			sprite_pos_init(t_cub *s, t_raycaster *r);
-char			*skipWhitespaces(char *str);
-void			freeTab(char **tab);
-int				initializeConfig(t_cub *s, const char *filename);
-
-// parsing.c
-void			suppr_line(char **tab, int i);
-int				is_end_space(char *str);
-int				checkFile(const char *filename, const char *extension);
-char			**fileDuplicate(const char *filename);
-
-char			*suppr_char_string(char *str, int n);
-void			clean_space(char **tab);
-char			**map_parsing(t_cub *s);
-int				check_map(t_cub *s);
-int				init_pos(t_cub *s);
 void			put_texture_n(t_raycaster *r, t_cub *s);
 void			put_texture_s(t_raycaster *r, t_cub *s);
 void			put_texture_e(t_raycaster *r, t_cub *s);

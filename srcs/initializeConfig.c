@@ -12,35 +12,6 @@
 
 #include <cub.h>
 
-int		init_texsprite(t_cub *s)
-{
-	int i;
-	int j;
-	int n;
-
-	i = -1;
-	j = 1;
-	while (s->parsing[++i])
-		if (s->parsing[i][0] == 'S' && s->parsing[i][1] == ' ')
-		{
-			while (s->parsing[i][j] == ' ')
-				j++;
-			n = j;
-			while (s->parsing[i][n] && s->parsing[i][n] != ' ')
-				n++;
-			if (!is_end_space(s->parsing[i] + n))
-				return (0);
-			s->parsing[i][n] = '\0';
-			if (!checkFile(s->parsing[i] + j, "xpm"))
-				return (0);
-			if (!convert_xpm_to_image(s->mlx_ptr, &s->texsprite, s->parsing[i] + j))
-				return (0);
-			suppr_line(s->parsing, i);
-			return (1);
-		}
-	return (0);
-}
-
 void	sprite_nbr_init(t_cub *s, t_raycaster *r)
 {
 	int i;
@@ -100,6 +71,12 @@ void	freeTab(char **tab) {
 	free(tab);
 }
 
+void printTab(char **tab)
+{
+	for (int i = 0; tab[i]; ++i)
+		printf("%d - '%s'\n", i, tab[i]);
+}
+
 
 int		initializeConfig(t_cub *s, const char *filename) {
 	s->_config._filename = filename;
@@ -110,7 +87,7 @@ int		initializeConfig(t_cub *s, const char *filename) {
 	else {
 		s->parsing = s->_config._fileDuplicate;
 	}
-	
+
 	if (!initializeConfigResolution(&s->_config))
 		end_of_the_world(s, 0, "Error: Invalid resolution\n");
 	else {
@@ -120,15 +97,6 @@ int		initializeConfig(t_cub *s, const char *filename) {
 		s->render.img_h = s->_config._resolutionHeight;
 	}
 	
-	if (!initializeWallTextures(s))
-		end_of_the_world(s, 0, "Error: Invalid wall textures\n");
-	else {
-		s->tex1 = s->_config._wallTexture._north;
-		s->tex2 = s->_config._wallTexture._south;
-		s->tex3 = s->_config._wallTexture._east;
-		s->tex4 = s->_config._wallTexture._west;
-	}
-
 	if (!initializeBackgroundColors(&s->_config))
 		end_of_the_world(s, 0, "Error: Invalid color for ceiling or floor\n");
 	else {
@@ -136,8 +104,16 @@ int		initializeConfig(t_cub *s, const char *filename) {
 		s->floor = s->_config._backgroundColor._floor;
 	}
 
-	if (!init_texsprite(s))
-		end_of_the_world(s, 0, "Texture Sprite non valide\n");
+	if (!initializeTextures(s))
+		end_of_the_world(s, 0, "Error: Invalid textures settings\n");
+	else {
+		s->tex1 = s->_config._wallTexture._north;
+		s->tex2 = s->_config._wallTexture._south;
+		s->tex3 = s->_config._wallTexture._east;
+		s->tex4 = s->_config._wallTexture._west;
+		s->texsprite = s->_config._spriteTexture;
+	}
+
 	if (!check_map(s))
 		end_of_the_world(s, 0, "Map non valide\n");
 	if (!init_pos(s))

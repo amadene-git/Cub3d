@@ -25,16 +25,3 @@ void	init_pos_utils(t_cub *s, int i, int j)
 	if (s->worldmap[i][j] == 'W')
 		s->angle = M_PI + (M_PI / 2);
 }
-
-void	map_parsing_utils(t_cub *s, int *i, int *n)
-{
-	*i = 0;
-	while (s->parsing[*i][0] != '1')
-		(*i)++;
-	*n = 0;
-	while (s->parsing[*i])
-	{
-		(*i)++;
-		(*n)++;
-	}
-}

@@ -12,22 +12,6 @@
 
 #include <cub.h>
 
-int		check_parsing(char **tab)
-{
-	int i;
-	int j;
-
-	i = -1;
-	while (tab[++i])
-	{
-		j = -1;
-		while (tab[i][++j])
-			if (tab[i][j] != ' ')
-				return (0);
-	}
-	return (1);
-}
-
 void	fct_save(t_cub *s)
 {
 	while (s->save++ < 10)
@@ -65,8 +49,6 @@ int		main(int ac, char **av)
 	var_init(&s);
 	if (s.save)
 		fct_save(&s);
-	if (!check_parsing(s.parsing))
-		end_of_the_world(&s, 1, "");
 	
 	mlx_hook(s.win_ptr, KEY_PRESSED, (1L << 0), handle_press, &s);
 	mlx_hook(s.win_ptr, KEY_RELEASE, (1L << 1), handle_release, &s);

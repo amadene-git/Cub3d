@@ -12,7 +12,7 @@
 
 #include <cub.h>
 
-int		convert_xpm_to_image(void *mlx_ptr, t_image *image, char *pathToImage)
+static int	convert_xpm_to_image(void *mlx_ptr, t_image *image, char *pathToImage)
 {
 	image->img_ptr = mlx_xpm_file_to_image(mlx_ptr, pathToImage, &image->img_w, &image->img_h);
 	if (!image->img_ptr)
@@ -22,21 +22,21 @@ int		convert_xpm_to_image(void *mlx_ptr, t_image *image, char *pathToImage)
 	return (1);
 }
 
-static int		initializeWallTextureByTagName(t_cub *s, const char *tag, t_image *wallTexture) {
+static int	initializeTextureByTagName(t_cub *s, const char *tag, t_image *wallTexture) {
 	char	**tokenizeLine = NULL;
 
 	for (int i = 0; s->_config._fileDuplicate[i]; ++i) {
-		if (ft_strncmp(skipWhitespaces(s->_config._fileDuplicate[i]), tag, 2) == 0) {
+		if (ft_strncmp(skipWhitespaces(s->_config._fileDuplicate[i]), tag, ft_strlen(tag)) == 0) {
 			tokenizeLine = ft_split_charset(s->_config._fileDuplicate[i], WHITESPACE_CHARSET);
-
-			if (ft_strcmp(tokenizeLine[0], tag) != 0
-			  || tokenizeLine[1] == NULL
+			if (ft_strcmp(tokenizeLine[0], tag) != 0) {
+				freeTab(tokenizeLine);
+				continue;
+			}
+			if (tokenizeLine[1] == NULL
 			  || tokenizeLine[2] != NULL
 			  || !checkFile(tokenizeLine[1], "xpm")
 			  || !convert_xpm_to_image(s->mlx_ptr, wallTexture, tokenizeLine[1]))
 				return (0);
-			
-			suppr_line(s->_config._fileDuplicate, i);// must be deleted
 			freeTab(tokenizeLine);
 			return (1);
 		}
@@ -44,12 +44,12 @@ static int		initializeWallTextureByTagName(t_cub *s, const char *tag, t_image *w
 	return (0);
 }
 
-int		initializeWallTextures(t_cub *s) {
-	if (!initializeWallTextureByTagName(s, "NO", &s->_config._wallTexture._north)
-	  || !initializeWallTextureByTagName(s, "SO", &s->_config._wallTexture._south)
-	  || !initializeWallTextureByTagName(s, "WE", &s->_config._wallTexture._west)
-	  || !initializeWallTextureByTagName(s, "EA", &s->_config._wallTexture._east))
+int			initializeTextures(t_cub *s) {
+	if (!initializeTextureByTagName(s, "NO", &s->_config._wallTexture._north)
+	  || !initializeTextureByTagName(s, "SO", &s->_config._wallTexture._south)
+	  || !initializeTextureByTagName(s, "WE", &s->_config._wallTexture._west)
+	  || !initializeTextureByTagName(s, "EA", &s->_config._wallTexture._east)
+	  || !initializeTextureByTagName(s, "S", &s->_config._spriteTexture))
 		return (0);
 	return (1);
 }
-

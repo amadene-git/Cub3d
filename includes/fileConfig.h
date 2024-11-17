@@ -23,13 +23,21 @@ typedef struct  s_backgroundColor {
 	int _floor;
 }               t_backgroundColor;
 
+typedef struct  s_map {
+	char			**_tab;
+	unsigned int	_width;
+	unsigned int	_height;
+}				t_map;
+
 typedef struct  s_fileConfig {
     const char          *_filename;
     char                **_fileDuplicate;
     unsigned int        _resolutionWidth;
     unsigned int        _resolutionHeight;
     t_wallTexture       _wallTexture;
+	t_image				_spriteTexture;
     t_backgroundColor   _backgroundColor;
+	t_map				_map;
 }               t_fileConfig;
 
 #endif
