@@ -46,22 +46,21 @@ static int	initializeBackgroundColorByTagName(char **fileDuplicate, const char *
 			  || tokenizeLine[1] == NULL
 			  || tokenizeLine[2] != NULL)
 				return (0);
-			
-			tokenizeColor = ft_split_charset(tokenizeLine[1], ",");  
+
+			tokenizeColor = ft_split_charset(tokenizeLine[1], ",");
 			if (tokenizeColor[0] == NULL || !isStrDigit(tokenizeColor[0])
 			  || tokenizeColor[1] == NULL || !isStrDigit(tokenizeColor[1])
 			  || tokenizeColor[2] == NULL || !isStrDigit(tokenizeColor[2])
 			  || tokenizeColor[3] != NULL)
 				return (0);
-			
+
 			if (!convertColor(&colorPtr[0], tokenizeColor[2])
-			  || !convertColor(&colorPtr[1], tokenizeColor[1])			
-			  || !convertColor(&colorPtr[2], tokenizeColor[0]))			
+			  || !convertColor(&colorPtr[1], tokenizeColor[1])
+			  || !convertColor(&colorPtr[2], tokenizeColor[0]))
 				return (0);
-			
+
 			freeTab(tokenizeLine);
 			freeTab(tokenizeColor);
-			suppr_line(fileDuplicate, i);
 			return (1);
 		}
 	}

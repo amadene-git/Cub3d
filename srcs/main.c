@@ -52,7 +52,7 @@ int		main(int ac, char **av)
 		takeScreenShot(&s);
 	mlx_hook(s.win_ptr, KEY_PRESSED, (1L << 0), handle_press, &s);
 	mlx_hook(s.win_ptr, KEY_RELEASE, (1L << 1), handle_release, &s);
-	mlx_loop_hook(s.mlx_ptr, move_print, &s);
+	mlx_loop_hook(s.mlx_ptr, mainLoop, &s);
 	mlx_hook(s.win_ptr, DESTROY_NOTIFY, (1L << 17), close_win, &s);
 	mlx_loop(s.mlx_ptr);
 	return (0);

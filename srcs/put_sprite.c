@@ -21,6 +21,51 @@ void	swap(t_sprite *a, t_sprite *b)
 	b->order = swp;
 }
 
+void	sprite_nbr_init(t_cub *s, t_raycaster *r)
+{
+	int i;
+	int j;
+
+	i = 0;
+	r->nbr_sprite = 0;
+	while (i < s->mapheight)
+	{
+		j = 0;
+		while (j < s->mapwidth)
+		{
+			if (s->worldmap[i][j++] == '2')
+				r->nbr_sprite++;
+		}
+		i++;
+	}
+}
+
+void	sprite_pos_init(t_cub *s, t_raycaster *r)
+{
+	int i;
+	int j;
+	int	n;
+
+	i = 0;
+	n = 0;
+	s->sprite = (t_sprite*)malloc(sizeof(t_sprite) * r->nbr_sprite);
+	while (i < s->mapheight)
+	{
+		j = 0;
+		while (j < s->mapwidth)
+		{
+			if (s->worldmap[i][j++] == '2')
+			{
+				s->sprite[n].x = i + 0.5;
+				s->sprite[n].y = j - 0.5;
+				n++;
+			}
+		}
+		i++;
+	}
+}
+
+
 void	sortsprites(t_sprite *sprite, int nbr_sprite)
 {
 	int i;

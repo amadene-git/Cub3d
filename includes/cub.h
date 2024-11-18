@@ -169,18 +169,12 @@ int				initializeSpriteTexture(t_cub *s);
 int				initializeConfigResolution(t_fileConfig *config);
 
 // initializeConfig.c
-void			sprite_nbr_init(t_cub *s, t_raycaster *r);
-void			sprite_pos_init(t_cub *s, t_raycaster *r);
 char			*skipWhitespaces(char *str);
 void			freeTab(char **tab);
 void			printTab(char **tab);
-int				initializeConfig(t_cub *s, const char *filename);
-
-// parsing.c
-void			suppr_line(char **tab, int i);
-int				is_end_space(char *str);
 int				checkFile(const char *filename, const char *extension);
 char			**fileDuplicate(const char *filename);
+int				initializeConfig(t_cub *s, const char *filename);
 
 // check_map.c
 int				initializeMap(t_cub *s);
@@ -192,12 +186,25 @@ void			takeScreenShot(t_cub *s);
 // save.c
 int				ft_save(char *filename, t_cub *s);
 
+// move.c
+int				handle_release(int key_release, t_cub *s);
+int				handle_press(int key_pressed, t_cub *s);
+void			move_key(t_cub *s);
+void			move_up_down(t_cub *s);
+int				mainLoop(t_cub *s);
 
+// put_sprite,c
+void			swap(t_sprite *a, t_sprite *b);
+void			sprite_nbr_init(t_cub *s, t_raycaster *r);
+void			sprite_pos_init(t_cub *s, t_raycaster *r);
+void			sortsprites(t_sprite *sprite, int nbr_sprite);
+void			sprite_init(t_cub *s, t_raycaster *r);
+void			sprite_var_init(t_cub *s, t_raycaster *r);
+void			put_sprite(t_cub *s, t_raycaster *r);
 
 void			move_key(t_cub *s);
 int				handle_press(int key_pressed, t_cub *s);
 int				handle_release(int key_release, t_cub *s);
-int				move_print(t_cub *s);
 void			raycaster(t_cub *s);
 void			raycaster_init(t_raycaster *r, t_cub *s);
 void			raycaster_dda(t_raycaster *r, t_cub *s);
@@ -213,11 +220,6 @@ void			raycaster_init(t_raycaster *r, t_cub *s);
 void			raycaster_dda(t_raycaster *r, t_cub *s);
 void			raycaster_algo(t_raycaster *r, t_cub *s);
 void			raycaster_texture(t_cub *s, t_raycaster *r);
-void			swap(t_sprite *a, t_sprite *b);
-void			sortsprites(t_sprite *sprite, int nbr_sprite);
-void			sprite_init(t_cub *s, t_raycaster *r);
-void			sprite_var_init(t_cub *s, t_raycaster *r);
-void			put_sprite(t_cub *s, t_raycaster *r);
 void			end_of_the_world(t_cub *s, int err, char *str);
 void			var_init(t_cub *s);
 void			printUsage();

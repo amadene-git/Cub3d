@@ -16,7 +16,6 @@ SRCS		=	srcs/check_map_utils.c\
 				srcs/init_close.c\
 				srcs/main.c\
 				srcs/move.c\
-				srcs/parsing.c\
 				srcs/put_sprite.c\
 				srcs/put_texture.c\
 				srcs/raycaster.c\

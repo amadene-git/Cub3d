@@ -12,6 +12,8 @@
 
 #include <cub.h>
 
+int lol = 0;
+
 void	raycaster_init(t_raycaster *r, t_cub *s)
 {
 	r->camerax = 2 * r->x / (double)(s->res_w) - 1;

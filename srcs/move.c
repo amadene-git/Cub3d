@@ -64,7 +64,7 @@ void	move_key(t_cub *s)
 
 int		handle_press(int key_pressed, t_cub *s)
 {
-	
+
     if (key_pressed == UP_KEY)
 		s->key.up = 1;
 	if (key_pressed == DOWN_KEY)
@@ -107,7 +107,7 @@ int		handle_release(int key_release, t_cub *s)
 	return (1);
 }
 
-int		move_print(t_cub *s)
+int		mainLoop(t_cub *s)
 {
 	raycaster(s);
 	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->render.img_ptr, 0, 0);
