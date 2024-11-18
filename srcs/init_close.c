@@ -71,6 +71,13 @@ void	var_init(t_cub *s)
 	s->render.img_ptr = mlx_new_image(s->mlx_ptr, s->res_w, s->res_h);
 	s->render.data = (int*)mlx_get_data_addr(s->render.img_ptr,\
 	&s->render.bit_pix, &s->render.size_l, &s->render.endian);
+
+	s->_minimap = malloc(sizeof(int*) * MINIMAP_HEIGHT);
+	for (size_t i = 0; i < MINIMAP_HEIGHT; ++i)
+	{
+		s->_minimap[i] = malloc(sizeof(int) * MINIMAP_WIDTH);
+		ft_bzero(s->_minimap[i], sizeof(int) * MINIMAP_WIDTH);
+	}
 }
 
 void printUsage(char *message)

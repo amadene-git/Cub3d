@@ -34,6 +34,8 @@
 # define RESOLUTION_WIDTH_MAX	2560
 # define RESOLUTION_HEIGHT_MAX	1440
 # define WHITESPACE_CHARSET		" \t\r"
+# define MINIMAP_WIDTH			250
+# define MINIMAP_HEIGHT			250
 
 
 # include <math.h>
@@ -76,6 +78,14 @@ typedef struct	s_sprite
 	int		order;
 }				t_sprite;
 
+typedef struct	s_player
+{
+	double		x;
+	double		y;
+	double		dirX;
+	double		dirY;
+}				t_player;
+
 typedef struct	s_cub
 {
 	double		pos_x;
@@ -106,6 +116,8 @@ typedef struct	s_cub
 	t_sprite	*sprite;
 	int			save;
 	t_fileConfig	_config;
+	t_player		_player;
+	int**			_minimap;
 }				t_cub;
 
 typedef struct	s_raycaster

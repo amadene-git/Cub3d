@@ -107,9 +107,54 @@ int		handle_release(int key_release, t_cub *s)
 	return (1);
 }
 
+void	putMinimapWall(t_cub *s, int **minimap) {
+	for (size_t y = 0; y < MINIMAP_HEIGHT; ++y)
+		for (size_t x = 0; x < MINIMAP_WIDTH; ++x) {
+			size_t mapX = (x * s->_config._map._width) / MINIMAP_WIDTH;
+			size_t mapY = (y * s->_config._map._height) / MINIMAP_HEIGHT;
+			minimap[y][x] = (s->_config._map._tab[mapY][mapX] - '0') ? 0 : 0xFFFFFFFF;
+		}
+}
+
+void	putMinimapPlayer(t_cub *s, int **minimap) {
+	size_t minimapY = s->_player.y * MINIMAP_HEIGHT / s->_config._map._height;
+	size_t minimapX = s->_player.x * MINIMAP_WIDTH / s->_config._map._width;
+	size_t playerRadius = MINIMAP_HEIGHT / 100 + MINIMAP_WIDTH / 100;
+	for (size_t y = minimapY - playerRadius; y < minimapY + playerRadius; ++y)
+		for (size_t x = minimapX - playerRadius; x < minimapX + playerRadius; ++x)
+			minimap[y][x] = 0x00FF0000;
+}
+
+void	putRenderMinimap(t_cub *s)
+{
+	int *tab = s->render.data;
+	int **minimap = s->_minimap;
+
+	putMinimapWall(s, minimap);
+	putMinimapPlayer(s, minimap);
+	for (size_t y = 0; y < MINIMAP_HEIGHT; ++y)
+		for (size_t x = 0; x < MINIMAP_WIDTH; ++x)
+			tab[(y * s->_config._resolutionWidth) + x] = minimap[y][x];
+}
+
 int		mainLoop(t_cub *s)
 {
 	raycaster(s);
+
+	s->_player.x = s->pos_y;
+	s->_player.y = s->pos_x;
+	s->_player.dirX = s->dir.y;
+	s->_player.dirY = s->dir.x;
+	// printf("x %f\n", s->_player.x);
+	// printf("y %f\n", s->_player.y);
+	// printf("angle %f\n", s->angle);
+	// printf("angle tan %f\n", acos(s->_player.dirY));
+	// printf("dirx %f\n", s->_player.dirX);
+	// printf("diry %f\n", s->_player.dirY);
+	// printf("\n");
+	putRenderMinimap(s);
+
+
 	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->render.img_ptr, 0, 0);
 	s->dir.x = -cos(s->angle);
 	s->dir.y = sin(s->angle);
