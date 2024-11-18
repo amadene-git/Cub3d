@@ -1,10 +1,6 @@
-- integrer le gnl de la libft
-- ajouter un garbage 
-- reparer le parsing de la map (segfault quand la map est identer)
-- enlever les suppr_line() des initiailizeConfig*
-- verifier si il y a des bad character dans le .cub
+- ajouter un garbage
+- parsing pas ouf, il faut lire le fichier jusqu'au bout et remplir les variables,
+    plutot que de remplir les variables en cherchant leurs champs dans le fichier
+
 ** faire un ecran titre
 ** ajouter des test u
-
-[en cours]
-- refaire le parsing

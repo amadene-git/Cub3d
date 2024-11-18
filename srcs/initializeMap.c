@@ -12,8 +12,7 @@
 
 #include <cub.h>
 
-static size_t	findMapFieldIndex(char **fileDuplicate)
-{
+static size_t	findMapIndex(char **fileDuplicate) {
 	for (size_t i = 0; fileDuplicate[i]; ++i) {
 		if (!ft_strncmp(skipWhitespaces(fileDuplicate[i]), "MAP", ft_strlen("MAP")))
 			return (i + 1);
@@ -49,7 +48,7 @@ static char		*ft_strdupWithoutWhitespaces(const char *str) {
 
 static char		**createMapTab(char **mapTab, size_t mapHeight) {
 	char	**mapTabCopy = NULL;
-	
+
 	if (!(mapTabCopy = (char**)malloc(sizeof(char*) * (mapHeight + 1))))
 		return (NULL);
 	for (size_t i = 0; i < mapHeight; ++i) {
@@ -59,10 +58,9 @@ static char		**createMapTab(char **mapTab, size_t mapHeight) {
 	return (mapTabCopy);
 }
 
-int				map_parsing(t_cub *s)
-{
-	s->_config._map._tab = NULL;	
-	int mapIndex = findMapFieldIndex(s->_config._fileDuplicate);
+static int		parseMap(t_cub *s) {
+	s->_config._map._tab = NULL;
+	int mapIndex = findMapIndex(s->_config._fileDuplicate);
 	if (mapIndex == -1)
 		return (0);
 	if (!(s->_config._map._height = computeMapHeight(s->_config._fileDuplicate + mapIndex)))
@@ -74,50 +72,31 @@ int				map_parsing(t_cub *s)
 	return (1);
 }
 
-int		check_char_in_map(char *str)
-{
-	while (*str)
-	{
-		if (*str != '0' && *str != '1'\
-		&& *str != '2' && *str != 'W'\
-		&& *str != 'E' && *str != 'S'\
-		&& *str != 'N')
+static int		checkMap(char **mapTab, size_t mapWidth, size_t mapHeight) {
+	for (size_t i = 0; i < mapHeight; ++i) {
+		if (ft_strlen(mapTab[i]) != mapWidth ||
+		  mapTab[i][0] != '1' || mapTab[i][mapWidth - 1] != '1') {
 			return (0);
-		str++;
+		}
+		for (char *str = mapTab[i]; *str; ++str)
+			if (!ft_isInCharset(*str, "012NSEW"))
+				return (0);
 	}
+	for (size_t i = 0; i < mapWidth; ++i)
+		if (mapTab[0][i] != '1')
+			return (0);
+	for (size_t i = 0; i < mapWidth; ++i)
+		if (mapTab[mapHeight - 1][i] != '1')
+			return (0);
 	return (1);
 }
 
-int		check_map(t_cub *s)
+int		initializeMap(t_cub *s)
 {
-	int	i;
-	int j;
-
-	if (!map_parsing(s))
+	if (!parseMap(s))
 		return (0);
-	s->worldmap = s->_config._map._tab;
-	s->mapwidth = s->_config._map._width;
-	s->mapheight = s->_config._map._height;
-	i = -1;
-	while (++i < s->mapheight)
-	{
-		if ((int)ft_strlen(s->worldmap[i]) != s->mapwidth ||
-		s->worldmap[i][0] != '1' || s->worldmap[i][s->mapwidth - 1] != '1') {
-	
-			return (0);
-
-		}
-		if (!check_char_in_map(s->worldmap[i]))
-			return (0);
-	}
-	j = 0;
-	while (j < s->mapwidth)
-		if (s->worldmap[0][j++] != '1')
-			return (0);
-	j = 0;
-	while (j < s->mapwidth)
-		if (s->worldmap[s->mapheight - 1][j++] != '1')
-			return (0);
+	if (!checkMap(s->_config._map._tab, s->_config._map._width, s->_config._map._height))
+		return (0);
 	return (1);
 }
 
@@ -127,7 +106,6 @@ int		init_pos(t_cub *s)
 	int j;
 	s->pos_x = -1.0;
 	s->pos_y = -1.0;
-
 
 	i = -1;
 	while ((j = -1) && ++i < s->mapheight)

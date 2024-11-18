@@ -183,9 +183,15 @@ int				checkFile(const char *filename, const char *extension);
 char			**fileDuplicate(const char *filename);
 
 // check_map.c
-int				map_parsing(t_cub *s);
-int				check_map(t_cub *s);
+int				initializeMap(t_cub *s);
 int				init_pos(t_cub *s);
+
+// main.c
+void			takeScreenShot(t_cub *s);
+
+// save.c
+int				ft_save(char *filename, t_cub *s);
+
 
 
 void			move_key(t_cub *s);
@@ -216,11 +222,6 @@ void			end_of_the_world(t_cub *s, int err, char *str);
 void			var_init(t_cub *s);
 void			printUsage();
 int				close_win(t_cub *s);
-int				ft_save(char *filename, t_cub *s);
-char			*ft_chr(const char *s, int c);
-char			*ft_sub(char const *s, unsigned int start, size_t len);
-int				get_next_line(int fd, char **line);
 void			init_pos_utils(t_cub *s, int i, int j);
-void			map_parsing_utils(t_cub *s, int *i, int *n);
 
 #endif

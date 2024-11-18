@@ -12,7 +12,7 @@
 
 #include <cub.h>
 
-void	fct_save(t_cub *s)
+void	takeScreenShot(t_cub *s)
 {
 	while (s->save++ < 10)
 	{
@@ -47,9 +47,9 @@ int		main(int ac, char **av)
 
 	s.save = (ac == 3 && !ft_strcmp(av[2], "--save"));
 	var_init(&s);
+
 	if (s.save)
-		fct_save(&s);
-	
+		takeScreenShot(&s);
 	mlx_hook(s.win_ptr, KEY_PRESSED, (1L << 0), handle_press, &s);
 	mlx_hook(s.win_ptr, KEY_RELEASE, (1L << 1), handle_release, &s);
 	mlx_loop_hook(s.mlx_ptr, move_print, &s);
